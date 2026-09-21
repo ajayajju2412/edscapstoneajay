@@ -2,13 +2,18 @@
 /* global WebImporter */
 /**
  * Parser for carousel. Base: carousel.
- * Source: https://wknd.site/us/en.html (.carousel.cmp-carousel--hero)
+ * Sources:
+ *   - Homepage hero: https://wknd.site/us/en.html (.carousel.cmp-carousel--hero)
+ *     Slides carry teaser text overlays (title, description, CTA).
+ *   - Adventure-detail gallery: https://wknd.site/us/en/adventures/bali-surf-camp.html
+ *     (.carousel.cmp-carousel--mini) Full-bleed image slides, no text overlay.
  * Generated: 2026-09-21
  *
  * Block library structure: 2 columns, multiple rows.
  *   Row 1: block name only.
  *   Each subsequent row = one slide: [image cell, text content cell].
  *   Text cell may hold title (heading), description, and CTA link.
+ *   For image-only gallery slides the text cell is empty ('').
  */
 export default function parse(element, { document }) {
   // Each carousel item is a slide. Fallback to teaser wrappers if item class differs.
@@ -23,12 +28,12 @@ export default function parse(element, { document }) {
     // Image: mandatory first cell.
     const img = slide.querySelector('img');
 
-    // Text content: title, description, CTA.
+    // Text content: title, description, CTA (present on hero slides, absent on gallery slides).
     const contentCell = [];
     const title = slide.querySelector('.cmp-teaser__title, h1, h2, h3');
     if (title) contentCell.push(title);
 
-    const description = slide.querySelector('.cmp-teaser__description, p');
+    const description = slide.querySelector('.cmp-teaser__description, .cmp-image__title, figcaption, p');
     if (description) contentCell.push(description);
 
     const ctaLinks = Array.from(slide.querySelectorAll(
