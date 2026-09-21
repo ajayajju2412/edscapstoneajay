@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
+import { networkFromLabel } from '../../scripts/social-icons.js';
+
 /**
  * Fetch the footer fragment as plain HTML.
  * Metadata-independent dual-fetch: /content first (localhost / aem up),
@@ -43,13 +46,12 @@ export default async function decorate(block) {
 
   // Tag each social link with a network class from its label so the icon CSS
   // doesn't depend on the href (authored links are "/" placeholders) or on
-  // list order. e.g. "Facebook" -> .footer-social-facebook
+  // list order. e.g. "Facebook" -> .footer-social-facebook. The label→network
+  // derivation is shared with the magazine social-links block (scripts/social-icons.js).
   const socialSection = footer.querySelector('.footer-social');
   if (socialSection) {
-    const NETWORKS = ['facebook', 'twitter', 'instagram', 'youtube', 'linkedin', 'pinterest', 'tiktok'];
     socialSection.querySelectorAll('a').forEach((a) => {
-      const label = a.textContent.trim().toLowerCase();
-      const network = NETWORKS.find((n) => label.includes(n));
+      const network = networkFromLabel(a.textContent);
       if (network) a.classList.add(`footer-social-${network}`);
     });
   }

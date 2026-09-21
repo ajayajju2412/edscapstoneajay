@@ -1,0 +1,60 @@
+/* magazine-cards — article card rail; shares the adventure-cards look. */
+
+.magazine-cards > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.magazine-cards > ul > li {
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.magazine-cards .magazine-cards-card-image {
+  line-height: 0;
+}
+
+.magazine-cards .magazine-cards-card-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.magazine-cards .magazine-cards-card-body {
+  margin: 16px;
+}
+
+/* card title — uppercase sans-serif, matching wknd image cards */
+.magazine-cards .magazine-cards-card-body h3 {
+  margin: 0 0 8px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.magazine-cards .magazine-cards-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.magazine-cards .magazine-cards-card-body h3 a:hover {
+  color: var(--link-color);
+}
+
+.magazine-cards .magazine-cards-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+}
+
+/* "All Articles" CTA — spacing only; the button appearance comes from the
+   site-wide a.button.primary rule in styles.css (flat yellow WKND CTA). */
+.magazine-cards .magazine-cards-more,
+.magazine-cards + .button-wrapper {
+  margin: 24px 0 0;
+}

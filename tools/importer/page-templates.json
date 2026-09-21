@@ -239,7 +239,35 @@
       ],
       "coverageGaps": [],
       "description": "Long-form article layout: title header, hero image, author/meta and flowing body content with embedded media",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "breadcrumbs",
+          "instances": [
+            ".breadcrumb.cmp-breadcrumb--fixed",
+            ".breadcrumb .cmp-breadcrumb",
+            "nav.cmp-breadcrumb"
+          ]
+        },
+        {
+          "name": "writer-details",
+          "instances": [
+            ".cmp-byline"
+          ]
+        },
+        {
+          "name": "social-links",
+          "instances": [
+            "a.cmp-button[aria-label]"
+          ]
+        },
+        {
+          "name": "quote",
+          "instances": [
+            ".cmp-contentfragment blockquote"
+          ]
+        }
+      ],
+      "sections": []
     }
   ],
   "metadata": {

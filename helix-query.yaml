@@ -1,16 +1,26 @@
 version: 1
 
 indices:
-  # Adventure detail pages → /query-index.json
-  # Scoped by path so every current and future /us/en/adventures/* page is
-  # captured automatically. Mirror this block for magazine articles later
-  # (e.g. include: /us/en/magazine/** with the same properties).
-  adventures:
+  # Single site content index → /query-index.json.
+  #
+  # Both index-driven rails (adventure-cards, magazine-cards) fetch this one
+  # /query-index.json and filter client-side by path prefix, so every content
+  # type that feeds a rail must be included here. EDS serves one JSON per index
+  # target, so adventures and magazine share this index (same properties) rather
+  # than each getting a separate target the blocks couldn't both read.
+  #
+  #   - /us/en/adventures/**  → adventure-cards rail (homepage "All Trips")
+  #   - /us/en/magazine/**    → magazine-cards rail (magazine listing, upcoming)
+  #
+  # The listing pages themselves (/adventures, /magazine) are excluded — they are
+  # index containers, not cards.
+  content:
     include:
       - '/us/en/adventures/**'
+      - '/us/en/magazine/**'
     exclude:
-      # the adventures listing page itself is not an adventure-detail card
       - '/us/en/adventures'
+      - '/us/en/magazine'
     target: /query-index.json
     properties:
       title:
