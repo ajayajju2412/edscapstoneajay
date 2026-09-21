@@ -13,3 +13,10 @@ helix-importer-ui
 !AGENTS.md
 migration-work/navigation-validation/
 migration-work/footer-validation/
+
+# migration scratch + local backups (project-local, not repo content)
+.migration/
+
+# generated import artifacts (rebuilt from tools/importer/import-*.js sources)
+tools/importer/*.bundle.js
+tools/importer/reports/
