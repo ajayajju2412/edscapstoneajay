@@ -81,7 +81,9 @@ h6 { font-size: var(--heading-font-size-xs); }
 
 /* wknd: section-title headings carry a short yellow underline accent.
    Scoped to default-content section titles so block/card headings are
-   unaffected (they live inside .block, not .default-content-wrapper). */
+   unaffected (they live inside .block, not .default-content-wrapper).
+   Includes h1 page titles (e.g. FAQs) that sit in default content. */
+main .default-content-wrapper > h1::after,
 main .default-content-wrapper > h2::after {
   content: "";
   display: block;
@@ -298,4 +300,39 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+/* faq section: two columns on desktop — main flow (title + intro + accordion)
+   on the left, the "Need more help?" sidebar on the right. The section's
+   wrappers (default-content, accordion, faq-sidebar) are the grid items.
+   Mobile stacks (single column, default flow). */
+@media (width >= 900px) {
+  main .section.faq {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 48px;
+    align-items: start;
+    max-width: 1680px;
+    margin: 40px auto;
+    padding: 0 32px;
+  }
+
+  /* left column: page title, intro, accordion */
+  main .section.faq > .default-content-wrapper,
+  main .section.faq > .accordion-wrapper {
+    grid-column: 1;
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 0;
+  }
+
+  /* right column: sidebar, top-aligned, spanning all three left-column rows */
+  main .section.faq > .faq-sidebar-wrapper {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    max-width: none;
+    padding: 0;
+  }
 }
