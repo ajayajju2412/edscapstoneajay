@@ -133,7 +133,7 @@
       "description": "Category listing page presenting a filtered/repeating grid of adventure teaser cards",
       "blocks": [
         {
-          "name": "columns-featured",
+          "name": "hero",
           "instances": [
             ".teaser .cmp-teaser",
             ".cmp-teaser"

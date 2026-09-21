@@ -27,19 +27,25 @@ function convertIntroTeaser(element) {
   const heading = teaser.querySelector('h1, h2, h3');
   if (!img || !heading) return;
 
+  // This is a cmp-teaser--hero: a full-bleed banner image with an opaque white
+  // content card overlapping its bottom edge — the same treatment as the
+  // homepage banner. Map it to the `hero` block (NOT columns-featured, which is
+  // plain side-by-side columns). hero's authored shape is two rows:
+  //   row 1: image
+  //   row 2: content (heading + body [+ CTA])
   const content = teaser.querySelector('.cmp-teaser__content') || teaser;
-  const textCol = document.createElement('div');
+  const contentCell = document.createElement('div');
   content.childNodes.forEach((n) => {
     if (!(n.nodeType === 1 && n.matches && n.matches('picture, img'))) {
-      textCol.append(n.cloneNode(true));
+      contentCell.append(n.cloneNode(true));
     }
   });
-  const imgCol = document.createElement('div');
-  imgCol.append((img.closest('picture') || img).cloneNode(true));
+  const imageCell = document.createElement('div');
+  imageCell.append((img.closest('picture') || img).cloneNode(true));
 
   const block = WebImporter.Blocks.createBlock(document, {
-    name: 'columns-featured',
-    cells: [[textCol, imgCol]],
+    name: 'hero',
+    cells: [[imageCell], [contentCell]],
   });
   const teaserRoot = teaser.closest('.teaser') || teaser;
   teaserRoot.replaceWith(block);
