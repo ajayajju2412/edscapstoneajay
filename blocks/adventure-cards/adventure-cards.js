@@ -2,18 +2,28 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 
 /*
  * adventure-cards
- * Index-driven card rail. Reads /query-index.json (the site's published query
- * index), filters to adventure-detail pages, and renders one card per entry
- * (image + uppercase title + description). Authors control only the optional
- * limit + heading via the block's first cell.
+ * Index-driven card rail (article-list style). Fetches /query-index.json at
+ * render time and builds cards from that JSON — image, uppercase title,
+ * description, link — rather than from baked-in static content. As adventure
+ * pages are added/reordered in the index, this rail reflects them with no code
+ * change.
  *
- * Authoring model (all optional):
- *   row 0, cell 0: a number — max cards to show (default: all)
+ * Authoring model (all optional, in the block's first cell):
+ *   - a number  → how many cards to DISPLAY (default 4). This is a display
+ *                 count only; every indexed adventure is still fetched, so a
+ *                 new page is never silently hidden — it just may fall past the
+ *                 visible count, with the "All Trips" link covering the rest.
+ *   - "all"     → show every indexed adventure (no display limit)
  */
+
+const DEFAULT_DISPLAY = 4;
+const INDEX_PATH = '/query-index.json';
+const ADVENTURES_PREFIX = '/us/en/adventures/';
+const ADVENTURES_LISTING = '/us/en/adventures';
 
 async function fetchIndex() {
   try {
-    const resp = await fetch('/query-index.json');
+    const resp = await fetch(INDEX_PATH);
     if (!resp.ok) return [];
     const json = await resp.json();
     return Array.isArray(json.data) ? json.data : [];
@@ -53,16 +63,39 @@ function buildCard(entry) {
 }
 
 export default async function decorate(block) {
-  // read optional limit from the authored block, then clear it
-  const cfg = block.textContent.trim();
-  const limit = /^\d+$/.test(cfg) ? parseInt(cfg, 10) : null;
+  // read optional display count from the authored block, then clear it
+  const cfg = block.textContent.trim().toLowerCase();
+  let display = DEFAULT_DISPLAY;
+  if (cfg === 'all') display = Infinity;
+  else if (/^\d+$/.test(cfg)) display = parseInt(cfg, 10);
   block.textContent = '';
 
-  const entries = (await fetchIndex())
-    .filter((e) => e.template === 'adventure-detail' && e.image);
-  const shown = limit ? entries.slice(0, limit) : entries;
+  // Every adventure-detail page in the index (scoped by path in helix-query.yaml).
+  const adventures = (await fetchIndex())
+    .filter((e) => e.path && e.path.startsWith(ADVENTURES_PREFIX) && e.image)
+    // stable display order: by title (indexer order is not guaranteed)
+    .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+  const shown = Number.isFinite(display) ? adventures.slice(0, display) : adventures;
 
   const ul = document.createElement('ul');
   shown.forEach((entry) => ul.append(buildCard(entry)));
   block.append(ul);
+
+  // "All Trips" link to the full adventures listing — covers anything beyond
+  // the visible count so added pages are never silently hidden. Only emit it
+  // when the authored content doesn't already provide one immediately after
+  // this block (the homepage authors an "All Trips" link there).
+  const next = block.closest('div')?.parentElement;
+  const authoredMore = next && [...next.querySelectorAll('a')]
+    .some((a) => /all trips/i.test(a.textContent) || a.getAttribute('href')?.startsWith(ADVENTURES_LISTING));
+  if (!authoredMore && adventures.length > shown.length) {
+    const more = document.createElement('p');
+    more.className = 'adventure-cards-more';
+    const link = document.createElement('a');
+    link.href = ADVENTURES_LISTING;
+    link.textContent = 'All Trips';
+    more.append(link);
+    block.append(more);
+  }
 }
