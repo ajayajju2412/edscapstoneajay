@@ -17,10 +17,10 @@
   --light-color: #f7f7f7;
   --dark-color: #202020;
 
-  /* heading sizes (desktop) */
-  --heading-font-size-xxl: 40px;   /* h1 */
-  --heading-font-size-xl: 36px;    /* h2 */
-  --heading-font-size-l: 24px;     /* h3 */
+  /* heading sizes — mobile-first (scaled down from the desktop values below) */
+  --heading-font-size-xxl: 34px;   /* h1 */
+  --heading-font-size-xl: 30px;    /* h2 */
+  --heading-font-size-l: 22px;     /* h3 */
   --heading-font-size-m: 16px;     /* h4 */
   --heading-font-size-s: 14px;     /* h5 */
   --heading-font-size-xs: 10px;    /* h6 */
@@ -32,4 +32,16 @@
 
   /* spacing */
   --nav-height: 88px;
+}
+
+/* desktop heading sizes — exact wknd.site computed values (h1 40 / h2 36 / h3 24 / h4 16 / h5 14 / h6 10) */
+@media (width >= 900px) {
+  :root {
+    --heading-font-size-xxl: 40px;   /* h1 */
+    --heading-font-size-xl: 36px;    /* h2 */
+    --heading-font-size-l: 24px;     /* h3 */
+    --heading-font-size-m: 16px;     /* h4 */
+    --heading-font-size-s: 14px;     /* h5 */
+    --heading-font-size-xs: 10px;    /* h6 */
+  }
 }

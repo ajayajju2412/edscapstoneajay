@@ -1,8 +1,9 @@
 /*
- * tabs-minimal-dark-withimg
- * Forked tabs variant: a category filter bar above a responsive grid of
- * image cards. The first row holds the filter labels; each remaining row is
- * a card (image + heading + description) tagged with one or more categories.
+ * category-filter
+ * A category filter bar above a responsive grid of image cards. Clicking a
+ * filter shows only the cards tagged with that category. The first row holds
+ * the filter labels; each remaining row is a card (image + heading +
+ * description) tagged with one or more categories.
  *
  * Authoring model:
  *   row 0            → filter labels (comma-separated or one cell per label)
@@ -19,7 +20,7 @@ export default function decorate(block) {
 
   // Build the filter bar
   const filters = document.createElement('div');
-  filters.className = 'tabs-minimal-dark-withimg-filters';
+  filters.className = 'category-filter-filters';
   filters.setAttribute('role', 'tablist');
 
   const labels = [];
@@ -36,16 +37,16 @@ export default function decorate(block) {
 
   // Build the card grid
   const grid = document.createElement('ul');
-  grid.className = 'tabs-minimal-dark-withimg-grid';
+  grid.className = 'category-filter-grid';
 
   cardRows.forEach((row) => {
     const li = document.createElement('li');
-    li.className = 'tabs-minimal-dark-withimg-card';
+    li.className = 'category-filter-card';
     [...row.children].forEach((cell) => {
       if (cell.querySelector('picture, img')) {
-        cell.className = 'tabs-minimal-dark-withimg-card-image';
+        cell.className = 'category-filter-card-image';
       } else {
-        cell.className = 'tabs-minimal-dark-withimg-card-body';
+        cell.className = 'category-filter-card-body';
       }
       li.append(cell);
     });
@@ -57,7 +58,7 @@ export default function decorate(block) {
   labels.forEach((label, i) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'tabs-minimal-dark-withimg-filter';
+    button.className = 'category-filter-filter';
     button.textContent = label;
     button.setAttribute('role', 'tab');
     button.setAttribute('aria-selected', i === 0);
@@ -65,7 +66,7 @@ export default function decorate(block) {
     button.addEventListener('click', () => {
       filters.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', false));
       button.setAttribute('aria-selected', true);
-      grid.querySelectorAll('.tabs-minimal-dark-withimg-card').forEach((card) => {
+      grid.querySelectorAll('.category-filter-card').forEach((card) => {
         const cats = (card.dataset.category || 'all').split(/\s+/);
         const show = key === 'all' || cats.includes(key);
         card.hidden = !show;

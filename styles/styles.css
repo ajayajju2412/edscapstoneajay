@@ -12,29 +12,8 @@
  * governing permissions and limitations under the License.
  */
 
-/* Core design tokens live in brand.css (imported above), extracted from wknd.site.
-   Mobile-first heading sizes below; brand.css desktop values apply at >= 900px. */
-:root {
-  /* heading sizes (mobile) */
-  --heading-font-size-xxl: 36px;
-  --heading-font-size-xl: 28px;
-  --heading-font-size-l: 22px;
-  --heading-font-size-m: 18px;
-  --heading-font-size-s: 16px;
-  --heading-font-size-xs: 14px;
-}
-
-@media (width >= 900px) {
-  :root {
-    /* desktop heading sizes — match wknd.site computed values */
-    --heading-font-size-xxl: 40px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 24px;
-    --heading-font-size-m: 16px;
-    --heading-font-size-s: 14px;
-    --heading-font-size-xs: 10px;
-  }
-}
+/* Core design tokens (colors, fonts, responsive heading + body sizes, spacing)
+   live in brand.css, imported above — extracted from wknd.site. */
 
 body {
   display: none;

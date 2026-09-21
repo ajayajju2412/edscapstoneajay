@@ -1,6 +1,6 @@
-# tabs-minimal-dark-withimg
+# category-filter
 
-Custom **tabs** block. 
+Custom **category-filter** block. 
 
 ## Authoring (Document Authoring)
 
