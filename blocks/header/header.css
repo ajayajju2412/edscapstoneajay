@@ -38,18 +38,6 @@ header nav[aria-expanded='true'] {
   min-height: 100dvh;
 }
 
-/* mobile drawer: dark background with light text (matches wknd mobile nav) */
-header nav[aria-expanded='true'] .nav-sections,
-header nav[aria-expanded='true'] .nav-tools {
-  background-color: var(--text-color);
-  color: #ebebeb;
-}
-
-header nav[aria-expanded='true'] .nav-sections a,
-header nav[aria-expanded='true'] .nav-tools a {
-  color: #ebebeb;
-}
-
 header nav p {
   margin: 0;
   line-height: 1;
@@ -191,6 +179,7 @@ header nav .nav-tools {
   gap: 16px;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 header nav .nav-tools ul {
   display: flex;
   align-items: center;
@@ -213,7 +202,7 @@ header nav .nav-search-label {
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 
@@ -241,6 +230,21 @@ header nav .nav-search-submit {
   background-position: center;
   background-size: 18px;
   cursor: pointer;
+}
+
+/* mobile drawer: dark background with light text (matches wknd mobile nav).
+   Placed after the base .nav-sections / .nav-tools / a rules so the
+   higher-specificity [aria-expanded='true'] selectors follow them. */
+header nav[aria-expanded='true'] .nav-sections,
+header nav[aria-expanded='true'] .nav-tools {
+  background-color: var(--text-color);
+  color: #ebebeb;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+header nav[aria-expanded='true'] .nav-sections a,
+header nav[aria-expanded='true'] .nav-tools a {
+  color: #ebebeb;
 }
 
 @media (width >= 900px) {
