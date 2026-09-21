@@ -52,6 +52,12 @@
             ".tabs .cmp-tabs",
             "div.tabs.aem-GridColumn"
           ]
+        },
+        {
+          "name": "adventure-meta",
+          "instances": [
+            "dl.cmp-contentfragment__elements"
+          ]
         }
       ],
       "sections": [
@@ -89,11 +95,11 @@
           ],
           "style": null,
           "blocks": [
-            "tabs"
+            "tabs",
+            "adventure-meta"
           ],
           "defaultContent": [
-            ".title.cmp-title--underline",
-            ".cmp-contentfragment"
+            ".title.cmp-title--underline"
           ]
         }
       ]

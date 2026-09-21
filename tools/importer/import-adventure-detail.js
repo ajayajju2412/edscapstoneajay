@@ -8,6 +8,7 @@ import tabsParser from './parsers/tabs.js';
 
 // TRANSFORMER IMPORTS
 import cleanupTransformer from './transformers/wknd-cleanup.js';
+import adventureDetailTransformer from './transformers/wknd-adventure-detail.js';
 import sectionsTransformer from './transformers/wknd-sections.js';
 
 // PARSER REGISTRY
@@ -34,9 +35,10 @@ const PAGE_TEMPLATE = {
   ],
 };
 
-// TRANSFORMER REGISTRY - cleanup first, then section breaks/metadata
+// TRANSFORMER REGISTRY - cleanup + adventure-detail cleanup first, then section breaks
 const transformers = [
   cleanupTransformer,
+  adventureDetailTransformer,
   ...(PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [sectionsTransformer] : []),
 ];
 

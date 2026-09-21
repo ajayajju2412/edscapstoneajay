@@ -1,0 +1,29 @@
+.adventure-meta .adventure-meta-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 32px;
+  margin: 24px 0;
+}
+
+.adventure-meta .adventure-meta-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+.adventure-meta .adventure-meta-value {
+  margin: 4px 0 0;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  .adventure-meta .adventure-meta-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 40px;
+  }
+}

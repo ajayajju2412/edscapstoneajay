@@ -1,57 +1,58 @@
 .tabs .tabs-list {
   display: flex;
-  gap: 0.5ch;
+  flex-wrap: wrap;
+  gap: 2px;
   max-width: 100%;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--heading-font-size-s);
   overflow-x: auto;
 }
 
-@media (width >= 600px) {
-  .tabs .tabs-list {
-    font-size: var(--body-font-size-s);
-  }
-}
-
-@media (width >= 900px) {
-  .tabs .tabs-list {
-    font-size: var(--body-font-size-m);
-  }
-}
-
+/* wknd: tab buttons are uppercase, dark, white text; active is inverted */
 .tabs .tabs-list button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid #dadada;
+  border: 0;
   border-radius: 0;
-  padding: 0.5em;
+  padding: 8px 16px;
   background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  line-height: 1.25;
+  text-transform: uppercase;
   text-align: initial;
   text-overflow: unset;
   overflow: unset;
-  white-space: unset;
-  transition: background-color 0.2s;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .tabs .tabs-list button p {
   margin: 0;
 }
 
+.tabs .tabs-list button:hover {
+  background-color: #e2e2e2;
+}
+
 .tabs .tabs-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
+  background-color: var(--text-color);
+  color: var(--background-color);
   cursor: initial;
 }
 
 .tabs .tabs-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
+  margin-top: 16px;
+  padding: 0;
   overflow: auto;
 }
 
 .tabs .tabs-panel[aria-hidden='true'] {
   display: none;
+}
+
+.tabs .tabs-panel img {
+  max-width: 100%;
+  height: auto;
 }

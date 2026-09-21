@@ -1,0 +1,17 @@
+{
+  "variantName": "adventure-meta",
+  "baseBlock": "adventure-meta",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "hasBackgroundImage": false,
+    "hasGrid": true,
+    "imagePattern": "noimg",
+    "structure": "label/value pairs grid"
+  },
+  "contentPattern": "Key/value facts for an adventure (Activity, Adventure Type, Trip Length, Group Size, Difficulty, Price) shown as an uppercase-label + bold-value grid.",
+  "usage": "adventure-detail template metadata block.",
+  "options": [],
+  "memberVariantIds": []
+}
