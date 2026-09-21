@@ -167,9 +167,7 @@ header nav .nav-sections ul ul {
   padding-left: 16px;
 }
 
-header nav .nav-sections a:hover {
-  color: var(--link-color);
-}
+/* wknd: primary nav links do NOT change color on hover (stay --text-color) */
 
 /* tools: search + locale + sign-in */
 header nav .nav-tools {
@@ -191,10 +189,12 @@ header nav .nav-tools ul {
   text-transform: uppercase;
 }
 
+/* search: magnifying-glass icon sits INSIDE the left of the input (matches
+   wknd), so the submit button is positioned over the input's left padding. */
 header nav .nav-search {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 
 header nav .nav-search-label {
@@ -212,14 +212,18 @@ header nav .nav-search input {
   max-width: 200px;
   border: 1px solid #d0d0d0;
   border-radius: 0;
-  padding: 6px 10px;
+  padding: 6px 10px 6px 34px; /* extra left padding for the inline icon */
   font: inherit;
   font-size: var(--heading-font-size-s);
 }
 
 header nav .nav-search-submit {
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -331,6 +335,14 @@ header nav[aria-expanded='true'] .nav-tools a {
 
   header nav .nav-sections .nav-list > li {
     padding: 0;
+  }
+
+  /* active-page highlight: yellow block on the current section's nav link
+     (wknd highlights the current item, e.g. FAQs while on the FAQ page) */
+  header nav .nav-sections .nav-list > li.nav-active a:any-link {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 6px 12px;
   }
 
   /* search box in the white nav row (matches source) */
