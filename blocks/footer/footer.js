@@ -41,5 +41,18 @@ export default async function decorate(block) {
     if (names[i]) section.classList.add(`footer-${names[i]}`);
   });
 
+  // Tag each social link with a network class from its label so the icon CSS
+  // doesn't depend on the href (authored links are "/" placeholders) or on
+  // list order. e.g. "Facebook" -> .footer-social-facebook
+  const socialSection = footer.querySelector('.footer-social');
+  if (socialSection) {
+    const NETWORKS = ['facebook', 'twitter', 'instagram', 'youtube', 'linkedin', 'pinterest', 'tiktok'];
+    socialSection.querySelectorAll('a').forEach((a) => {
+      const label = a.textContent.trim().toLowerCase();
+      const network = NETWORKS.find((n) => label.includes(n));
+      if (network) a.classList.add(`footer-social-${network}`);
+    });
+  }
+
   block.append(footer);
 }
