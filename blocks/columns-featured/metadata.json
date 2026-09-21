@@ -1,0 +1,17 @@
+{
+  "variantName": "columns-featured",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "comfortable",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "image + text column with CTA"
+  },
+  "contentPattern": "Two-column featured promo: image on one side, text column (label, heading, body, CTA) on the other, on a light card background.",
+  "usage": "Homepage Featured Article section.",
+  "options": [],
+  "memberVariantIds": []
+}

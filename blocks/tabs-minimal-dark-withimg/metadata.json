@@ -1,0 +1,19 @@
+{
+  "variantName": "tabs-minimal-dark-withimg",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "32 images + list"
+  },
+  "contentPattern": "Authored tabs-minimal-dark-withimg block",
+  "usage": "Migrated from wknd.site",
+  "options": [],
+  "memberVariantIds": [
+    "v_8ab7ece34e9a-3"
+  ]
+}

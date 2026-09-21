@@ -25,3 +25,17 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* option: minimal-dark-withimg — borderless cards with a larger image */
+.cards.minimal-dark-withimg > ul > li {
+  border: 0;
+  background-color: transparent;
+}
+
+.cards.minimal-dark-withimg .cards-card-body {
+  margin: 12px 0 0;
+}
+
+.cards.minimal-dark-withimg > ul > li img {
+  aspect-ratio: 1 / 1;
+}

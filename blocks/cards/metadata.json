@@ -1,0 +1,31 @@
+{
+  "variantName": "cards",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "5 images + list"
+  },
+  "contentPattern": "Authored cards block",
+  "usage": {
+    "pagesUsing": [
+      "/us/en"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-21T05:28:54.147Z"
+  },
+  "options": [
+    {
+      "class": "minimal-dark-withimg",
+      "label": "Minimal Dark Withimg"
+    }
+  ],
+  "memberVariantIds": [
+    "v_096172ab7f4e",
+    "v_ff3f792dc182"
+  ]
+}

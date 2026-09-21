@@ -1,0 +1,19 @@
+{
+  "variantName": "accordion",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "heading + text + 7 CTAs"
+  },
+  "contentPattern": "Authored accordion block",
+  "usage": "Migrated from wknd.site",
+  "options": [],
+  "memberVariantIds": [
+    "v_4ecd3661fdd5"
+  ]
+}

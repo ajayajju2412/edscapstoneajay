@@ -1,0 +1,28 @@
+{
+  "variantName": "carousel",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "2 CTAs + image + list"
+  },
+  "contentPattern": "Full-width slides, each with a background image and optional content overlay (heading, text, CTA). Slide indicators and prev/next navigation.",
+  "usage": {
+    "pagesUsing": [
+      "/us/en"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-21T05:28:54.147Z"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_85f1e746e380",
+    "v_85f1e746e380-1",
+    "v_85f1e746e380-2",
+    "v_85f1e746e380-3"
+  ]
+}

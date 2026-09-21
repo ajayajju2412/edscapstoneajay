@@ -1,0 +1,28 @@
+.breadcrumbs .breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5ch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--body-font-size-xs);
+}
+
+.breadcrumbs .breadcrumbs-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumbs .breadcrumbs-item:not(:last-child)::after {
+  content: '/';
+  padding-left: 0.5ch;
+}
+
+.breadcrumbs .breadcrumbs-item p {
+  margin: 0;
+}
+
+.breadcrumbs .breadcrumbs-item[aria-current='page'] {
+  font-weight: 600;
+}

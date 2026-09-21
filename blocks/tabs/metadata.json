@@ -1,0 +1,45 @@
+{
+  "variantName": "tabs",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "heading + text + image + list"
+  },
+  "contentPattern": "Authored tabs block",
+  "usage": "Migrated from wknd.site",
+  "options": [
+    {
+      "class": "minimal-dark-withimg",
+      "label": "Minimal Dark Withimg"
+    },
+    {
+      "class": "minimal-dark-withimg-2",
+      "label": "Minimal Dark Withimg 2"
+    },
+    {
+      "class": "minimal-dark-withimg-3",
+      "label": "Minimal Dark Withimg 3"
+    },
+    {
+      "class": "minimal-dark-withimg-4",
+      "label": "Minimal Dark Withimg 4"
+    },
+    {
+      "class": "minimal-dark-withimg-5",
+      "label": "Minimal Dark Withimg 5"
+    }
+  ],
+  "memberVariantIds": [
+    "v_60ecccde5dfd",
+    "v_8ab7ece34e9a-1",
+    "v_8ab7ece34e9a-2",
+    "v_8ab7ece34e9a-4",
+    "v_898f31ecc29b",
+    "v_8ab7ece34e9a"
+  ]
+}

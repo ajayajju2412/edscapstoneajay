@@ -59,7 +59,104 @@
       ],
       "coverageGaps": [],
       "description": "Site landing page: full-width hero banner followed by stacked feature/teaser sections linking into the main content areas",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "carousel",
+          "instances": [
+            ".carousel.cmp-carousel--hero"
+          ]
+        },
+        {
+          "name": "columns-featured",
+          "instances": [
+            ".teaser.cmp-teaser--featured"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            ".image-list.list"
+          ]
+        },
+        {
+          "name": "hero",
+          "instances": [
+            ".teaser.cmp-teaser--hero.cmp-teaser--imagebottom"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "name": "hero-carousel",
+          "selector": [
+            ".carousel.cmp-carousel--hero"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s2",
+          "name": "featured-article",
+          "selector": [
+            ".teaser.cmp-teaser--featured"
+          ],
+          "style": "light-grey",
+          "blocks": [
+            "columns-featured"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s3",
+          "name": "recent-articles",
+          "selector": [
+            ".cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
+            ".image-list.list"
+          ],
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            ".title.cmp-title--underline",
+            ".separator"
+          ]
+        },
+        {
+          "id": "s4",
+          "name": "next-adventures",
+          "selector": [
+            ".teaser.cmp-teaser--hero.cmp-teaser--imagebottom"
+          ],
+          "style": null,
+          "blocks": [
+            "hero"
+          ],
+          "defaultContent": [
+            ".title.cmp-title--underline"
+          ]
+        },
+        {
+          "id": "s5",
+          "name": "destinations",
+          "selector": [
+            ".cmp-layout-container--fixed:nth-of-type(2) .image-list.list",
+            ".image-list.list"
+          ],
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            ".title.cmp-title--underline",
+            ".separator"
+          ]
+        }
+      ]
     },
     {
       "name": "magazine-article",
@@ -74,5 +171,8 @@
       "description": "Long-form article layout: title header, hero image, author/meta and flowing body content with embedded media",
       "blocks": []
     }
-  ]
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
 }

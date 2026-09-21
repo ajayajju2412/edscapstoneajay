@@ -1,0 +1,16 @@
+{
+  "variantName": "footer",
+  "baseBlock": "footer",
+  "canonicalModel": "configuration",
+  "visualCharacteristics": {
+    "colorScheme": "mixed",
+    "complexity": "simple",
+    "density": "moderate"
+  },
+  "contentPattern": "Authored footer block",
+  "usage": "Migrated from wknd.site",
+  "options": [],
+  "memberVariantIds": [
+    "footer-global"
+  ]
+}
