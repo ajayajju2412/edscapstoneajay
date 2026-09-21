@@ -83,18 +83,28 @@ export default async function decorate(block) {
   block.append(ul);
 
   // "All Trips" link to the full adventures listing — covers anything beyond
-  // the visible count so added pages are never silently hidden. Only emit it
-  // when the authored content doesn't already provide one immediately after
-  // this block (the homepage authors an "All Trips" link there).
-  const next = block.closest('div')?.parentElement;
-  const authoredMore = next && [...next.querySelectorAll('a')]
-    .some((a) => /all trips/i.test(a.textContent) || a.getAttribute('href')?.startsWith(ADVENTURES_LISTING));
-  if (!authoredMore && adventures.length > shown.length) {
+  // the visible count so added pages are never silently hidden.
+  //
+  // Style it as the site's primary CTA button (flat yellow, from styles.css
+  // `a.button.primary`). If the page already authors an "All Trips" link
+  // right after this block (the homepage does), promote that one in place;
+  // otherwise emit our own.
+  const section = block.closest('.adventure-cards-wrapper')?.parentElement
+    || block.closest('div')?.parentElement;
+  const authoredLink = section && [...section.querySelectorAll('p > a')]
+    .find((a) => /all trips/i.test(a.textContent)
+      || (a.getAttribute('href') || '').replace(/\.html$/, '').endsWith(ADVENTURES_LISTING));
+
+  if (authoredLink) {
+    authoredLink.classList.add('button', 'primary');
+    authoredLink.closest('p').className = 'button-wrapper';
+  } else if (adventures.length > shown.length) {
     const more = document.createElement('p');
-    more.className = 'adventure-cards-more';
+    more.className = 'button-wrapper adventure-cards-more';
     const link = document.createElement('a');
     link.href = ADVENTURES_LISTING;
     link.textContent = 'All Trips';
+    link.className = 'button primary';
     more.append(link);
     block.append(more);
   }

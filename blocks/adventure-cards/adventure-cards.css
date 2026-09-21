@@ -50,20 +50,9 @@
   font-size: var(--body-font-size-xs);
 }
 
-/* "All Trips" link to the full adventures listing */
-.adventure-cards .adventure-cards-more {
+/* "All Trips" CTA — spacing only; the button appearance comes from the
+   site-wide a.button.primary rule in styles.css (flat yellow WKND CTA). */
+.adventure-cards .adventure-cards-more,
+.adventure-cards + .button-wrapper {
   margin: 24px 0 0;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-.adventure-cards .adventure-cards-more a:any-link {
-  color: var(--link-color);
-  text-transform: uppercase;
-  font-size: var(--heading-font-size-s);
-  text-decoration: none;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-.adventure-cards .adventure-cards-more a:hover {
-  text-decoration: underline;
 }
