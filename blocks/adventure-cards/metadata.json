@@ -1,0 +1,10 @@
+{
+  "variantName": "adventure-cards",
+  "baseBlock": "adventure-cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": { "colorScheme": "light", "density": "comfortable", "hasBackgroundImage": false, "hasGrid": true, "imagePattern": "large", "structure": "index-driven image card grid" },
+  "contentPattern": "Index-driven adventure card rail: reads /query-index.json, filters adventure-detail pages, renders image + uppercase title + description per card. Optional numeric limit.",
+  "usage": "Homepage 'Where do you want to go?' adventures rail; any dynamic adventure listing.",
+  "options": [],
+  "memberVariantIds": []
+}
