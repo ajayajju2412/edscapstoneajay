@@ -29,6 +29,7 @@
   justify-content: flex-end; /* wknd: card sits at the bottom, over the image */
   position: relative;
   width: 100%;
+
   /* full-bleed banner image height; the content card overlaps its bottom edge
      (matches wknd's ~640px banner at desktop widths) */
   min-height: clamp(320px, 44vw, 640px);
