@@ -1,0 +1,87 @@
+/*
+ * adventures-filter — filter bar + index-driven card grid. Shares the WKND
+ * card look with adventure-cards; the filter bar matches category-filter
+ * (uppercase tabs, active tab = dark pill).
+ */
+
+.adventures-filter .adventures-filter-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5ch;
+  margin-bottom: 24px;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+}
+
+.adventures-filter .adventures-filter-filter {
+  margin: 0;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.adventures-filter .adventures-filter-filter[aria-selected='true'] {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.adventures-filter .adventures-filter-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.adventures-filter .adventures-filter-card {
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.adventures-filter .adventures-filter-card[hidden] {
+  display: none;
+}
+
+.adventures-filter .adventures-filter-card-image {
+  line-height: 0;
+}
+
+.adventures-filter .adventures-filter-card-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.adventures-filter .adventures-filter-card-body {
+  margin: 16px;
+}
+
+/* card title — uppercase sans-serif, matching wknd image cards */
+.adventures-filter .adventures-filter-card-body h3 {
+  margin: 0 0 8px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.adventures-filter .adventures-filter-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.adventures-filter .adventures-filter-card-body h3 a:hover {
+  color: var(--link-color);
+}
+
+.adventures-filter .adventures-filter-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+}

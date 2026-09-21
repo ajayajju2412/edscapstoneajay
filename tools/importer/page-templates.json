@@ -131,7 +131,23 @@
       ],
       "coverageGaps": [],
       "description": "Category listing page presenting a filtered/repeating grid of adventure teaser cards",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "columns-featured",
+          "instances": [
+            ".teaser .cmp-teaser",
+            ".cmp-teaser"
+          ]
+        },
+        {
+          "name": "adventures-filter",
+          "instances": [
+            ".tabs.panelcontainer",
+            ".image-list.list"
+          ]
+        }
+      ],
+      "sections": []
     },
     {
       "name": "faq",
