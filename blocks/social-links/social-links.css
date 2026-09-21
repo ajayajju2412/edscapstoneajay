@@ -39,10 +39,12 @@
   height: 18px;
 }
 
+/* Each icon in scripts/social-icons.js carries its own fill/stroke (solid glyphs
+   use fill=currentColor, instagram uses fill=none stroke=currentColor); do NOT
+   set fill here or it would erase instagram's outline. */
 .social-links .social-links-icon svg {
   width: 100%;
   height: 100%;
-  fill: currentcolor;
 }
 
 .social-links .social-links-label {

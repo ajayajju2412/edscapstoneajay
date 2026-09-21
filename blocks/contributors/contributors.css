@@ -67,10 +67,12 @@
   background-color: #000;
 }
 
+/* Each icon in scripts/social-icons.js carries its own fill/stroke (solid glyphs
+   use fill=currentColor, instagram uses fill=none stroke=currentColor); do NOT
+   set fill here or it would erase instagram's outline. */
 .contributors .contributors-social-link svg {
   width: 18px;
   height: 18px;
-  fill: currentcolor;
 }
 
 @media (width >= 600px) {
