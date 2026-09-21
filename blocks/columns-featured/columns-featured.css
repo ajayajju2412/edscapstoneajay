@@ -7,6 +7,7 @@
   width: 100%;
 }
 
+/* text column after the image (image-first in both DOM orders) */
 .columns-featured > div > div {
   order: 1;
 }
@@ -22,12 +23,12 @@
 @media (width >= 900px) {
   .columns-featured > div {
     align-items: center;
-    flex-direction: unset;
+    flex-direction: row;
     gap: 24px;
   }
 
+  /* keep image on the LEFT, text on the RIGHT — matches wknd */
   .columns-featured > div > div {
     flex: 1;
-    order: unset;
   }
 }
