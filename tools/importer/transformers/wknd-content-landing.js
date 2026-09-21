@@ -67,6 +67,50 @@ function convertAllArticles(element) {
   list.replaceWith(block);
 }
 
+/* ---- magazine "Members Only" locked teasers ------------------------------ */
+
+function convertMembersOnly(element) {
+  // The "Members Only" section holds gated teasers, each a .cmp-teaser with a
+  // title, tagline, "Read More", and a thumbnail. Convert the pair into a
+  // members-only block (2-col grid, lock badge, disabled CTA). Scope strictly
+  // to teasers that sit AFTER the "Members Only" heading so we never touch the
+  // featured article above.
+  const membersH = [...element.querySelectorAll('h2')]
+    .find((h) => /members only/i.test(h.textContent));
+  if (!membersH) return;
+
+  const teasers = [...element.querySelectorAll('.teaser.cmp-teaser, .cmp-teaser')]
+    .filter((t) => t.querySelector('img')
+      && (membersH.compareDocumentPosition(t) & Node.DOCUMENT_POSITION_FOLLOWING));
+  // de-dupe nested matches, keep the outermost teaser per item
+  const roots = teasers.filter((t) => !teasers.some((o) => o !== t && o.contains(t)));
+  if (!roots.length) return;
+
+  const rows = roots.map((t) => {
+    const img = t.querySelector('img');
+    const title = t.querySelector('h1, h2, h3, h4');
+    // tagline: first paragraph that isn't the CTA
+    const tagline = [...t.querySelectorAll('p, .cmp-teaser__description')]
+      .map((p) => p.textContent.trim())
+      .find((txt) => txt && !/^read more$/i.test(txt)) || '';
+
+    const imgCell = document.createElement('div');
+    if (img && img.getAttribute('src')) {
+      const newImg = document.createElement('img');
+      newImg.src = img.getAttribute('src');
+      newImg.alt = title ? title.textContent.trim() : '';
+      imgCell.append(newImg);
+    }
+    return [imgCell, title ? title.textContent.trim() : '', tagline, 'Read More'];
+  });
+
+  const block = WebImporter.Blocks.createBlock(document, { name: 'members-only', cells: rows });
+  // insert before the first teaser root, then remove the originals
+  const firstRoot = roots[0].closest('.teaser') || roots[0];
+  firstRoot.parentNode.insertBefore(block, firstRoot);
+  roots.forEach((t) => (t.closest('.teaser') || t).remove());
+}
+
 /* ---- about-us contributors ---------------------------------------------- */
 
 function convertContributors(element) {
@@ -155,6 +199,7 @@ export default function transform(hookName, element, payload) {
   // magazine index
   convertFeatured(element);
   convertAllArticles(element);
+  convertMembersOnly(element);
 
   // about-us contributors
   convertContributors(element);

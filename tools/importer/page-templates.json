@@ -26,6 +26,12 @@
           "instances": [
             ".cmp-experiencefragment:not(.cmp-experiencefragment--footer)"
           ]
+        },
+        {
+          "name": "members-only",
+          "instances": [
+            ".teaser.cmp-teaser"
+          ]
         }
       ],
       "sections": []
