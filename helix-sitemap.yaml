@@ -20,9 +20,13 @@ sitemaps:
     origin: https://main--edscapstoneajay--ajayajju2412.aem.live
     destination: /sitemap.xml
     languages:
+      # both indexes are English content; hreflang is required on each language
+      # entry when using the languages block to aggregate sources.
       content:
         source: /query-index.json
         destination: /sitemap.xml
+        hreflang: en
       pages:
         source: /pages-index.json
         destination: /sitemap.xml
+        hreflang: en
