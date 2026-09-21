@@ -22,7 +22,7 @@ body {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  line-height: 1.5;
+  line-height: 1.75; /* wknd: 31.5px for 18px body text */
 }
 
 body.appear {
@@ -78,6 +78,17 @@ h3 { font-size: var(--heading-font-size-l); }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
+
+/* wknd: section-title headings carry a short yellow underline accent.
+   Scoped to default-content section titles so block/card headings are
+   unaffected (they live inside .block, not .default-content-wrapper). */
+main .default-content-wrapper > h2::after {
+  content: "";
+  display: block;
+  width: 84px;
+  margin-top: 12px;
+  border-bottom: 2px solid var(--accent-color);
+}
 
 p,
 dl,

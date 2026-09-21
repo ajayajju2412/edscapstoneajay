@@ -113,6 +113,9 @@ function decorateButtons(main) {
     const p = a.closest('p');
     const text = a.textContent.trim();
 
+    // never buttonize breadcrumb trail links — they are navigation, not CTAs
+    if (a.closest('.breadcrumbs')) return;
+
     // quick structural checks
     if (a.querySelector('img') || p.textContent.trim() !== text) return;
 
@@ -121,10 +124,8 @@ function decorateButtons(main) {
       if (new URL(a.href).href === new URL(text, window.location).href) return;
     } catch { /* continue */ }
 
-    // require authored formatting for buttonization
     const strong = a.closest('strong');
     const em = a.closest('em');
-    if (!strong && !em) return;
 
     p.className = 'button-wrapper';
     a.className = 'button';
@@ -135,9 +136,17 @@ function decorateButtons(main) {
     } else if (strong) {
       a.classList.add('primary');
       strong.replaceWith(a);
-    } else {
+    } else if (em) {
       a.classList.add('secondary');
       em.replaceWith(a);
+    } else {
+      // wknd authors CTAs as a bare, single-link paragraph (no strong/em).
+      // Promote any such solo-link paragraph to the signature yellow CTA so
+      // every CTA-style link renders uniformly across templates. This only
+      // catches paragraphs whose sole content is one link — block links that
+      // are not wrapped in <p> (breadcrumbs) or live inside a heading (card
+      // titles) never match, and header/footer are decorated separately.
+      a.classList.add('primary');
     }
   });
 }

@@ -1,3 +1,13 @@
+/*
+ * hero — wknd "imagebottom" teaser: a full-bleed banner image with a white
+ * content card pulled up so it overlaps the bottom of the image. The headline
+ * sits on the opaque white card (dark serif), NOT over the photo.
+ *
+ * Authored structure (two rows):
+ *   .hero > div:first-child  → image
+ *   .hero > div:last-child   → content (heading, body, CTA)
+ */
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,49 +15,44 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  padding: 0;
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.hero img {
-  object-fit: cover;
+/* banner image — displayed in flow, full width (no longer a -z-index bg) */
+.hero > div:first-child picture,
+.hero > div:first-child img {
+  display: block;
   width: 100%;
-  height: 100%;
+}
+
+.hero > div:first-child img {
+  height: auto;
+  object-fit: cover;
+}
+
+/* opaque white content card, pulled up to overlap the image bottom */
+.hero > div:last-child {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  max-width: 1136px;
+  margin: -56px auto 0;
+  padding: 16px 28px 24px;
+  background-color: var(--background-color);
+}
+
+/* headline on the card is dark serif (default heading style), not white */
+.hero h1,
+.hero h2,
+.hero h3 {
+  margin-top: 0.4em;
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
 }
 
 @media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+  .hero > div:last-child {
+    margin-top: -120px;
+    padding: 24px 28px 32px;
   }
-}
-
-/* option: minimal-dark-withimg — dark overlay content over a full-bleed image */
-.hero.minimal-dark-withimg,
-.hero.minimal-dark-withimg-2,
-.hero.minimal-dark-withimg-3 {
-  color: var(--background-color);
-}
-
-.hero.minimal-dark-withimg h1,
-.hero.minimal-dark-withimg h2,
-.hero.minimal-dark-withimg-2 h1,
-.hero.minimal-dark-withimg-2 h2,
-.hero.minimal-dark-withimg-3 h1,
-.hero.minimal-dark-withimg-3 h2 {
-  color: var(--background-color);
 }
