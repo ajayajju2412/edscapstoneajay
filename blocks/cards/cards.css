@@ -16,6 +16,29 @@
   margin: 16px;
 }
 
+/* card title — uppercase sans-serif, matching wknd image-list cards */
+.cards .cards-card-body h2,
+.cards .cards-card-body h3,
+.cards .cards-card-body h4 {
+  margin: 0 0 8px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.cards .cards-card-body h2 a:any-link,
+.cards .cards-card-body h3 a:any-link,
+.cards .cards-card-body h4 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.cards .cards-card-body h3 a:hover {
+  color: var(--link-color);
+}
+
 .cards .cards-card-image {
   line-height: 0;
 }

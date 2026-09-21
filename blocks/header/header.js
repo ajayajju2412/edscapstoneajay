@@ -89,25 +89,14 @@ export default async function decorate(block) {
     }
   }
 
-  // primary nav: expose the top-level list as .nav-list and mark any item
-  // with a nested list as a dropdown trigger (.nav-drop / .nav-trigger)
+  // primary nav: expose the top-level list as .nav-list (flat list of links)
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     const topList = navSections.querySelector(':scope > ul');
     if (topList) topList.classList.add('nav-list');
-    navSections.querySelectorAll(':scope ul > li').forEach((li) => {
-      const link = li.querySelector(':scope > a');
-      if (li.querySelector('ul')) {
-        li.classList.add('nav-drop');
-        li.setAttribute('aria-expanded', 'true');
-        if (link) link.classList.add('nav-trigger');
-      }
-    });
+    // search box lives in the nav row (right of the primary links), matching source
+    navSections.append(buildSearch());
   }
-
-  // tools: append the JS-built search form ahead of the locale/sign-in links
-  const navTools = nav.querySelector('.nav-tools');
-  if (navTools) navTools.prepend(buildSearch());
 
   // hamburger for mobile
   const hamburger = document.createElement('div');

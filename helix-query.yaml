@@ -1,0 +1,30 @@
+version: 1
+
+indices:
+  # Adventure detail pages → /query-index.json
+  # Scoped by path so every current and future /us/en/adventures/* page is
+  # captured automatically. Mirror this block for magazine articles later
+  # (e.g. include: /us/en/magazine/** with the same properties).
+  adventures:
+    include:
+      - '/us/en/adventures/**'
+    exclude:
+      # the adventures listing page itself is not an adventure-detail card
+      - '/us/en/adventures'
+    target: /query-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: attribute(el, 'content')
+      template:
+        select: head > meta[name="template"]
+        value: attribute(el, 'content')
+      lastModified:
+        select: none
+        value: parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')
