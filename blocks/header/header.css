@@ -252,17 +252,17 @@ header nav[aria-expanded='true'] .nav-tools a {
     position: fixed;
   }
 
-  /* three-band stack: dark utility strip, logo+search, primary nav */
+  /* Two bands: a dark utility bar (tools) spanning full width on top, then a
+     white main row with logo on the left and nav + search on the right. */
   header nav {
     display: grid;
     grid-template:
-      'tools' 40px
-      'brand' 84px
-      'sections' auto / 1fr;
+      'tools tools' 40px
+      'brand sections' 84px / auto 1fr;
     align-items: center;
-    gap: 0;
+    gap: 0 32px;
     height: auto;
-    padding: 0;
+    padding: 0 32px;
   }
 
   header nav .nav-hamburger {
@@ -270,7 +270,7 @@ header nav[aria-expanded='true'] .nav-tools a {
     visibility: hidden;
   }
 
-  /* band 1 — dark utility strip */
+  /* band 1 — dark utility bar, right-aligned Sign In + en-US, full-bleed */
   header nav .nav-tools {
     grid-area: tools;
     justify-content: flex-end;
@@ -285,68 +285,59 @@ header nav[aria-expanded='true'] .nav-tools a {
 
   header nav .nav-tools ul {
     gap: 24px;
+    flex-wrap: nowrap;
+  }
+
+  header nav .nav-tools li {
+    white-space: nowrap;
+  }
+
+  header nav .nav-tools a {
+    color: #ebebeb;
   }
 
   header nav .nav-tools a:hover {
     color: #fff;
   }
 
-  header nav .nav-search input {
-    max-width: 180px;
-    border-color: #555;
-    background-color: var(--text-color);
-    color: #ebebeb;
-  }
-
-  header nav .nav-search-submit {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ebebeb' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
-  }
-
-  /* band 2 — centered logo */
+  /* logo left */
   header nav .nav-brand {
     grid-area: brand;
-    justify-content: center;
+    justify-content: flex-start;
     align-self: center;
   }
 
-  /* band 3 — centered primary nav */
+  /* nav + search on the right, single row */
   header nav .nav-sections {
     grid-area: sections;
-    display: block;
+    display: flex;
     visibility: visible;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 32px;
     white-space: nowrap;
-    padding-bottom: 12px;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
-    align-self: unset;
+    align-self: center;
   }
 
-  /* flatten the Home>children tree into one inline row of siblings */
   header nav .nav-sections .nav-list {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 32px;
     margin: 0;
   }
 
   header nav .nav-sections .nav-list > li {
-    display: flex;
-    align-items: center;
-    gap: 40px;
     padding: 0;
   }
 
-  header nav .nav-sections .nav-list ul {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin: 0;
-    padding-left: 0;
-  }
-
-  header nav .nav-sections .nav-list li {
-    padding: 0;
+  /* search box in the white nav row (matches source) */
+  header nav .nav-search input {
+    max-width: 180px;
+    border-color: #d0d0d0;
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
 }
