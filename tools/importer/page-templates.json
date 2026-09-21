@@ -156,7 +156,21 @@
       ],
       "coverageGaps": [],
       "description": "FAQ page with a header and stacked question/answer accordion or text sections",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "accordion",
+          "instances": [
+            ".cmp-accordion"
+          ]
+        },
+        {
+          "name": "faq-sidebar",
+          "instances": [
+            ".cmp-container:has(> .cmp-title__text)"
+          ]
+        }
+      ],
+      "sections": []
     },
     {
       "name": "homepage",
