@@ -1,0 +1,47 @@
+/*
+ * writer-details — avatar + name + occupations, matching wknd's .cmp-byline:
+ * a ~60px circular avatar beside a serif name (Asar) and a small grey uppercase
+ * occupations line.
+ */
+
+.writer-details {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.writer-details .writer-details-avatar {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.writer-details .writer-details-avatar img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.writer-details .writer-details-info {
+  min-width: 0;
+}
+
+.writer-details .writer-details-name {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l); /* 24px desktop */
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.writer-details .writer-details-occupations {
+  margin: 4px 0 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #696969;
+}
