@@ -8,7 +8,27 @@
       ],
       "coverageGaps": [],
       "description": "Editorial landing/index layout with an intro header and a grid of teaser cards linking to detail pages (about-us and magazine index)",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "columns-featured",
+          "instances": [
+            ".teaser.cmp-teaser--featured"
+          ]
+        },
+        {
+          "name": "magazine-cards",
+          "instances": [
+            ".image-list.list"
+          ]
+        },
+        {
+          "name": "contributors",
+          "instances": [
+            ".cmp-experiencefragment:not(.cmp-experiencefragment--footer)"
+          ]
+        }
+      ],
+      "sections": []
     },
     {
       "name": "adventure-detail",

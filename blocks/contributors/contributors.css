@@ -1,0 +1,88 @@
+/*
+ * contributors — centered person-card grid (avatar + name + role + socials),
+ * matching WKND's "Our Contributors" / "WKND Guides" sections: up to 4 cards per
+ * row on desktop, each centered with a 164px circular avatar.
+ */
+
+.contributors {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px 24px;
+  margin: 24px 0;
+}
+
+.contributors .contributors-card {
+  text-align: center;
+}
+
+.contributors .contributors-avatar {
+  width: 164px;
+  height: 164px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.contributors .contributors-avatar img {
+  width: 164px;
+  height: 164px;
+  object-fit: cover;
+}
+
+.contributors .contributors-name {
+  margin: 0 0 4px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l); /* 24px desktop */
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.contributors .contributors-role {
+  margin: 0 0 12px;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-color);
+}
+
+.contributors .contributors-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.contributors .contributors-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  color: #ebebeb;
+}
+
+.contributors .contributors-social-link:hover {
+  background-color: #000;
+}
+
+/* Each icon in scripts/social-icons.js carries its own fill/stroke (solid glyphs
+   use fill=currentColor, instagram uses fill=none stroke=currentColor); do NOT
+   set fill here or it would erase instagram's outline. */
+.contributors .contributors-social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (width >= 600px) {
+  .contributors {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .contributors {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
