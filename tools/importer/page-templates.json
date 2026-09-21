@@ -32,7 +32,77 @@
       ],
       "coverageGaps": [],
       "description": "Detail page for a single adventure: hero image, metadata sidebar/columns, rich body content and related items",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "breadcrumbs",
+          "instances": [
+            ".breadcrumb.cmp-breadcrumb--fixed"
+          ]
+        },
+        {
+          "name": "carousel",
+          "instances": [
+            ".carousel.cmp-carousel--mini",
+            ".carousel.panelcontainer"
+          ]
+        },
+        {
+          "name": "tabs",
+          "instances": [
+            ".tabs .cmp-tabs",
+            "div.tabs.aem-GridColumn"
+          ]
+        },
+        {
+          "name": "adventure-meta",
+          "instances": [
+            "dl.cmp-contentfragment__elements"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "name": "breadcrumb",
+          "selector": [
+            ".breadcrumb.cmp-breadcrumb--fixed"
+          ],
+          "style": null,
+          "blocks": [
+            "breadcrumbs"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s2",
+          "name": "gallery",
+          "selector": [
+            ".carousel.cmp-carousel--mini",
+            ".carousel.panelcontainer"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s3",
+          "name": "detail-body",
+          "selector": [
+            ".cmp-layout-container--fixed",
+            "main.container.responsivegrid.cmp-layout-container--fixed"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs",
+            "adventure-meta"
+          ],
+          "defaultContent": [
+            ".title.cmp-title--underline"
+          ]
+        }
+      ]
     },
     {
       "name": "adventures-listing",

@@ -13,10 +13,11 @@
   "contentPattern": "Full-width slides, each with a background image and optional content overlay (heading, text, CTA). Slide indicators and prev/next navigation.",
   "usage": {
     "pagesUsing": [
-      "/us/en"
+      "/us/en",
+      "/us/en/adventures/bali-surf-camp"
     ],
-    "reuseCount": 1,
-    "lastUsed": "2026-09-21T05:28:54.147Z"
+    "reuseCount": 2,
+    "lastUsed": "2026-09-21T07:46:32.002Z"
   },
   "options": [],
   "memberVariantIds": [

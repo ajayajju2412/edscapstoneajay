@@ -11,7 +11,14 @@
     "structure": "heading + text + image + list"
   },
   "contentPattern": "Authored tabs block",
-  "usage": "Migrated from wknd.site",
+  "usage": {
+    "pagesUsing": [
+      "/us/en/adventures/bali-surf-camp"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-21T07:46:32.002Z",
+    "note": "Migrated from wknd.site"
+  },
   "options": [
     {
       "class": "minimal-dark-withimg",
