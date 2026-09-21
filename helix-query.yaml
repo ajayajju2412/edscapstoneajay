@@ -41,3 +41,28 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')
+
+  # Static/listing pages index → /pages-index.json.
+  #
+  # The `content` index above is deliberately scoped to detail pages only (it
+  # feeds the card rails). The homepage and the section/listing pages are not in
+  # it, so the sitemap would miss them. This second index captures exactly those
+  # 5 pages; helix-sitemap.yaml combines both indexes into one /sitemap.xml.
+  pages:
+    include:
+      - '/us/en'
+      - '/us/en/adventures'
+      - '/us/en/magazine'
+      - '/us/en/about-us'
+      - '/us/en/faqs'
+    target: /pages-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, 'content')
+      lastModified:
+        select: none
+        value: parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')

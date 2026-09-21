@@ -1,0 +1,32 @@
+# Sitemap config for the WKND EDS site.
+#
+# Replaces the platform default sitemap (which wrongly listed /footer and /nav
+# fragments as pages). Builds /sitemap.xml from the query indexes only, so it
+# contains real pages and nothing else.
+#
+# Two index sources feed ONE /sitemap.xml. AEM does not allow a single `source`
+# to list multiple index paths, so we use the `languages` block: multiple
+# sources that share the same `destination` are aggregated into one sitemap
+# (per aem.live docs — "Using the same destination it is possible to combine
+# multiple small sitemaps into one larger sitemap").
+#
+#   - content : /query-index.json  → 16 adventure-detail + 5 magazine-article
+#   - pages   : /pages-index.json  → homepage + adventures/magazine/about-us/faqs
+#
+# = 26 URLs total. Update `origin` to the real production domain once one exists.
+
+sitemaps:
+  default:
+    origin: https://main--edscapstoneajay--ajayajju2412.aem.live
+    destination: /sitemap.xml
+    languages:
+      # both indexes are English content; hreflang is required on each language
+      # entry when using the languages block to aggregate sources.
+      content:
+        source: /query-index.json
+        destination: /sitemap.xml
+        hreflang: en
+      pages:
+        source: /pages-index.json
+        destination: /sitemap.xml
+        hreflang: en
