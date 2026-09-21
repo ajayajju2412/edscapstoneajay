@@ -1,0 +1,16 @@
+{
+  "variantName": "header",
+  "baseBlock": "header",
+  "canonicalModel": "configuration",
+  "visualCharacteristics": {
+    "colorScheme": "mixed",
+    "complexity": "advanced",
+    "density": "moderate"
+  },
+  "contentPattern": "Authored header block",
+  "usage": "Migrated from wknd.site",
+  "options": [],
+  "memberVariantIds": [
+    "header-global"
+  ]
+}

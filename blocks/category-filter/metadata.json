@@ -1,0 +1,19 @@
+{
+  "variantName": "category-filter",
+  "baseBlock": "category-filter",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": true,
+    "imagePattern": "large",
+    "structure": "filter bar + image card grid"
+  },
+  "contentPattern": "A category filter bar above a responsive grid of image cards; selecting a filter shows only cards tagged with that category.",
+  "usage": "Adventures listing / any filterable card grid. Migrated from wknd.site (formerly named tabs-minimal-dark-withimg).",
+  "options": [],
+  "memberVariantIds": [
+    "v_8ab7ece34e9a-3"
+  ]
+}

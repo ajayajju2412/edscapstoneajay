@@ -1,0 +1,62 @@
+.category-filter .category-filter-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5ch;
+  margin-bottom: 24px;
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+}
+
+.category-filter .category-filter-filter {
+  margin: 0;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.category-filter .category-filter-filter[aria-selected='true'] {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.category-filter .category-filter-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (width >= 600px) {
+  .category-filter .category-filter-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .category-filter .category-filter-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.category-filter .category-filter-card[hidden] {
+  display: none;
+}
+
+.category-filter .category-filter-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.category-filter .category-filter-card-body {
+  padding-top: 12px;
+}

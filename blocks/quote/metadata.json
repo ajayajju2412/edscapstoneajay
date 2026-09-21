@@ -1,0 +1,25 @@
+{
+  "variantName": "quote",
+  "baseBlock": "quote",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "heading + image"
+  },
+  "contentPattern": "Authored quote block",
+  "usage": "Migrated from wknd.site",
+  "options": [
+    {
+      "class": "minimal-dark-withimg",
+      "label": "Minimal Dark Withimg"
+    }
+  ],
+  "memberVariantIds": [
+    "v_b7118a52fdcc",
+    "v_b7118a52fdcc-1"
+  ]
+}

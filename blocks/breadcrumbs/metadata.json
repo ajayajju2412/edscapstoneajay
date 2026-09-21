@@ -1,0 +1,19 @@
+{
+  "variantName": "breadcrumbs",
+  "baseBlock": "breadcrumbs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "list"
+  },
+  "contentPattern": "Authored breadcrumbs block",
+  "usage": "Migrated from wknd.site",
+  "options": [],
+  "memberVariantIds": [
+    "v_4d46829f22d9"
+  ]
+}

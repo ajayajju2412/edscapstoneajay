@@ -35,3 +35,19 @@
     padding: 40px 32px;
   }
 }
+
+/* option: minimal-dark-withimg — dark overlay content over a full-bleed image */
+.hero.minimal-dark-withimg,
+.hero.minimal-dark-withimg-2,
+.hero.minimal-dark-withimg-3 {
+  color: var(--background-color);
+}
+
+.hero.minimal-dark-withimg h1,
+.hero.minimal-dark-withimg h2,
+.hero.minimal-dark-withimg-2 h1,
+.hero.minimal-dark-withimg-2 h2,
+.hero.minimal-dark-withimg-3 h1,
+.hero.minimal-dark-withimg-3 h2 {
+  color: var(--background-color);
+}
