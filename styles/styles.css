@@ -42,9 +42,21 @@ header {
   header {
     position: sticky;
     top: 0;
-    z-index: 2;
+
+    /* above the carousel controls (z-index:2) so the full-bleed carousel's
+       prev/next buttons never paint over the sticky header while scrolling */
+    z-index: 10;
     height: auto;
   }
+}
+
+/* Contain the carousel's full-bleed 100vw breakout: 100vw counts the vertical
+   scrollbar's width, so the centred breakout overhangs each edge by ~half the
+   scrollbar and triggers a page-wide horizontal scrollbar. Clip the overflow on
+   main (overflow:clip, unlike hidden, does NOT create a scroll container, so the
+   sticky header keeps working). */
+main {
+  overflow-x: clip;
 }
 
 header .header,
