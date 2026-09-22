@@ -13,6 +13,15 @@ main > .section.contributors-container > div {
   max-width: 1164px;
 }
 
+/* wknd's "Meet the outstanding individuals…" / "Meet our extraordinary
+   travel guides…" section intros render at 14px (line-height 35px), not the
+   18px body copy. Match that size for the default-content paragraphs in the
+   contributors section. */
+main > .section.contributors-container .default-content-wrapper p {
+  font-size: var(--body-font-size-xs); /* 14px */
+  line-height: 2.5; /* ~35px, matches source */
+}
+
 .contributors {
   display: grid;
   grid-template-columns: 1fr;
