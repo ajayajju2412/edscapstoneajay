@@ -25,9 +25,9 @@
   align-items: center;
 }
 
-/* separator between crumbs: wknd uses its icon-font glyph — a small solid dark
-   right-pointing arrow tip (▸), the same marker as the tab-panel lists. Draw it
-   as a filled CSS triangle. */
+/* separator between crumbs: wknd uses its icon-font glyph — a small solid
+   right-pointing arrow tip (▸) in the yellow accent colour. Draw it as a filled
+   CSS triangle. */
 .breadcrumbs .breadcrumbs-item:not(:last-child)::after {
   content: '';
   display: inline-block;
@@ -36,7 +36,7 @@
   margin: 0 10px;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  border-left: 6px solid var(--text-color);
+  border-left: 6px solid var(--accent-color);
 }
 
 .breadcrumbs .breadcrumbs-item p {
