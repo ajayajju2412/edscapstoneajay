@@ -136,6 +136,14 @@ header nav .nav-brand img {
   object-fit: contain;
 }
 
+/* mobile: wknd.site scales the logo down to 96x36 below the desktop breakpoint */
+@media (width < 900px) {
+  header nav .nav-brand img {
+    width: 96px;
+    height: 36px;
+  }
+}
+
 /* primary nav sections (mobile: inside the drawer, dark) */
 header nav .nav-sections {
   grid-area: sections;
