@@ -9,6 +9,7 @@ import heroParser from './parsers/hero.js';
 
 // TRANSFORMER IMPORTS
 import cleanupTransformer from './transformers/wknd-cleanup.js';
+import homepageTransformer from './transformers/wknd-homepage.js';
 import sectionsTransformer from './transformers/wknd-sections.js';
 
 // PARSER REGISTRY
@@ -42,6 +43,7 @@ const PAGE_TEMPLATE = {
 // TRANSFORMER REGISTRY - cleanup first, then section breaks/metadata
 const transformers = [
   cleanupTransformer,
+  homepageTransformer,
   ...(PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [sectionsTransformer] : []),
 ];
 

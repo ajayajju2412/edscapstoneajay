@@ -63,18 +63,30 @@ function buildCard(entry) {
 }
 
 export default async function decorate(block) {
-  // read optional display count from the authored block, then clear it
+  // read optional config tokens from the authored block, then clear it.
+  //   - a number → display count (default 4)
+  //   - "all"    → no display limit
+  //   - "recent" → sort by lastModified desc (newest first) instead of by title;
+  //                used by the homepage "Recent Articles" rail
   const cfg = block.textContent.trim().toLowerCase();
+  const tokens = cfg.split(/\s+/).filter(Boolean);
+  const recent = tokens.includes('recent');
   let display = DEFAULT_DISPLAY;
-  if (cfg === 'all') display = Infinity;
-  else if (/^\d+$/.test(cfg)) display = parseInt(cfg, 10);
+  if (tokens.includes('all')) display = Infinity;
+  else {
+    const num = tokens.find((t) => /^\d+$/.test(t));
+    if (num) display = parseInt(num, 10);
+  }
   block.textContent = '';
 
   // Every magazine-article page in the index (scoped by path in helix-query.yaml).
   const articles = (await fetchIndex())
     .filter((e) => e.path && e.path.startsWith(MAGAZINE_PREFIX) && e.image)
-    // stable display order: by title (indexer order is not guaranteed)
-    .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    .sort((a, b) => (recent
+      // newest first by lastModified (falling back to 0)
+      ? (Number(b.lastModified) || 0) - (Number(a.lastModified) || 0)
+      // stable display order: by title (indexer order is not guaranteed)
+      : (a.title || '').localeCompare(b.title || '')));
 
   const shown = Number.isFinite(display) ? articles.slice(0, display) : articles;
 
