@@ -432,7 +432,7 @@ header nav[aria-expanded='true'] .nav-tools a {
     display: grid;
     grid-template:
       'tools tools' 40px
-      'brand sections' 84px / auto 1fr;
+      'brand sections' 100px / auto 1fr;
     align-items: center;
     gap: 0 32px;
     height: auto;
@@ -561,6 +561,6 @@ header nav[aria-expanded='true'] .nav-tools a {
   header .nav-wrapper.nav-scrolled nav {
     grid-template:
       'tools tools' 40px
-      'brand sections' 56px / auto 1fr;
+      'brand sections' 72px / auto 1fr;
   }
 }
