@@ -26,7 +26,9 @@
 }
 
 .hero > div:first-child img {
-  height: auto;
+  /* clamp the banner to wknd's ~640px height instead of the image's intrinsic
+     height (which rendered ~960-1114px on the homepage) */
+  height: clamp(320px, 44vw, 640px);
   object-fit: cover;
 }
 

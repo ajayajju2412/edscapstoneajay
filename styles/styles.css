@@ -326,6 +326,14 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* light-grey section (homepage Featured Article band): wknd's grey #ebebeb.
+   Set from the section metadata style="light-grey" (see wknd-sections). */
+main .section.light-grey {
+  background-color: #ebebeb;
+  margin: 0;
+  padding: 40px 0;
+}
+
 /* faq section: two columns on desktop — main flow (title + intro + accordion)
    on the left, the "Need more help?" sidebar on the right. The section's
    wrappers (default-content, accordion, faq-sidebar) are the grid items.
