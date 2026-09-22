@@ -55,9 +55,11 @@
 @media (width >= 900px) {
   .hero > div:last-child {
     /* deepen the overlap so the card sits mostly over the image and extends
-       only ~40px below its bottom edge (matches wknd: 640px image, card
-       overhang ~40px → block ~680px, same as the hero carousel). */
-    margin-top: -235px;
+       ~40px below its bottom edge (matches wknd: 640px image, card overhang
+       ~40px → block ~680px). At -235px the card ended flush with the image
+       bottom, gluing the "See Trip" CTA to the photo edge; -212px lets the
+       card overhang the image bottom by ~40px like the source. */
+    margin-top: -212px;
     padding: 24px 28px 32px;
   }
 }
