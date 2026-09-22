@@ -1,28 +1,13 @@
 footer {
-  position: relative;
   background-color: var(--text-color);
   color: #ebebeb;
   font-size: var(--body-font-size-xs);
 }
 
-/* wknd draws a faint divider line on the page (not inside the dark footer)
-   separating the last content section from the footer — a 1px #ebebeb rule,
-   centred to the ~1136px content width, sitting just above the footer. */
-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1136px, calc(100% - 48px));
-  height: 1px;
-  background-color: #ebebeb;
-}
-
 footer .footer {
   max-width: 1680px;
   margin: auto;
-  padding: 40px 24px 24px;
+  padding: 16px 24px 24px; /* wknd: 16px top / 24px bottom (was 40px top, too tall) */
 }
 
 footer .footer p {
@@ -148,7 +133,7 @@ footer .footer-legal a:hover {
      not the near-edge 32px gutter we had. Cap to 1136px and centre. */
   footer .footer {
     max-width: 1136px;
-    padding: 40px 0 24px;
+    padding: 16px 0 24px; /* wknd: 16px top / 24px bottom */
   }
 
   /* wknd: brand, nav and social sit in one row across the top; the legal band
