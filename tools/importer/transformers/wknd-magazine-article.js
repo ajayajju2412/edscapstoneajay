@@ -128,11 +128,27 @@ function convertPullQuotes(element) {
   });
 }
 
+function convertBylineHeading(element) {
+  // The "By <author>" byline is an <h4> in the source, sitting right under the
+  // page <h1> — that skips h2/h3 and fails heading-order. A byline is not part
+  // of the document outline, so demote it to a plain <p>. Match by the "By "
+  // prefix so we never touch section headings.
+  element.querySelectorAll('h2, h3, h4, h5, h6').forEach((h) => {
+    if (!/^\s*by\s+\S/i.test(h.textContent)) return;
+    const p = document.createElement('p');
+    p.innerHTML = h.innerHTML;
+    h.replaceWith(p);
+  });
+}
+
 export default function transform(hookName, element, payload) {
   if (hookName !== TransformHook.beforeTransform) return;
 
   // 5. Remove the contentfragment title(s) that echo the page H1.
   WebImporter.DOMUtils.remove(element, ['h3.cmp-contentfragment__title']);
+
+  // 6. Demote the "By <author>" byline heading to a paragraph (heading-order).
+  convertBylineHeading(element);
 
   // 4. Remove the WKND sidebar (SHARE THIS STORY + related-articles list) — it's
   //    page chrome, not article content, and duplicates the footer/nav intent.
