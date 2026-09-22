@@ -76,10 +76,13 @@
   content: '';
   position: absolute;
   left: 2px;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
-  border: solid var(--text-color);
-  border-width: 2px 2px 0 0; /* top+right edges → a ">" arrow tip when rotated */
-  transform: rotate(45deg);
+  top: 0.5em;
+  width: 0;
+  height: 0;
+
+  /* solid filled right-pointing triangle (▸) — matches the source's dark arrow
+     tip glyph, not a hollow chevron */
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--text-color);
 }
