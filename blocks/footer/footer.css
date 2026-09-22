@@ -49,17 +49,16 @@ footer .footer-nav ul {
 /* "Follow Us" label: a <p> (not a heading) to keep it out of the document
    outline; styled to look like the original h4. */
 footer .footer-social .footer-social-label {
-  margin: 0 0 8px;
+  margin: 0;
 
-  /* wknd "Follow Us": body font (Source Sans Pro), regular weight, 18px, NOT
-     uppercase, left-aligned, #f7f7f7 — not the bold serif uppercase label this
-     used to be. */
+  /* wknd "Follow Us": body font (Source Sans Pro), semibold 600, 16px,
+     UPPERCASE, #ebebeb. */
   font-family: var(--body-font-family);
-  font-size: 18px;
-  font-weight: 400;
-  text-transform: none;
-  text-align: left;
-  color: #f7f7f7;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #ebebeb;
+  white-space: nowrap;
 }
 
 footer .footer-social ul {
@@ -131,8 +130,11 @@ footer .footer-legal a:hover {
 }
 
 @media (width >= 900px) {
+  /* wknd insets footer content ~152px each side (content centred to ~1136px),
+     not the near-edge 32px gutter we had. Cap to 1136px and centre. */
   footer .footer {
-    padding: 40px 32px 24px;
+    max-width: 1136px;
+    padding: 40px 0 24px;
   }
 
   /* wknd: brand, nav and social sit in one row across the top; the legal band
@@ -152,12 +154,15 @@ footer .footer-legal a:hover {
   footer .footer-nav { grid-area: nav; }
   footer .footer-legal { grid-area: legal; }
 
-  /* wknd left-aligns the "Follow Us" label and social icons within the social
-     column (not flush-right) */
+  /* social column sits at the right end of the top row; "Follow Us" label and
+     the icon row sit side-by-side (wknd: label left of the icons, centred
+     vertically), right-aligned within the column. */
   footer .footer-social {
     grid-area: social;
-    justify-self: start;
-    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-self: end;
   }
 
   footer .footer-social ul {
