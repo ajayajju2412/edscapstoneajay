@@ -145,13 +145,19 @@ footer .footer-legal a:hover {
     grid-template-areas:
       'brand nav social'
       'legal legal legal';
-    align-items: start;
+    align-items: center; /* wknd: logo, nav and social vertically centred in the top row */
     column-gap: 48px;
   }
 
   footer .footer-brand { grid-area: brand; }
   footer .footer-nav { grid-area: nav; }
-  footer .footer-legal { grid-area: legal; }
+
+  /* legal band spans full width below; stretch it back to normal top-alignment
+     so align-items:center on the grid doesn't shift the block */
+  footer .footer-legal {
+    grid-area: legal;
+    align-self: stretch;
+  }
 
   /* social column sits at the right end of the top row; "Follow Us" label and
      the icon row sit side-by-side (wknd: label left of the icons, centred
