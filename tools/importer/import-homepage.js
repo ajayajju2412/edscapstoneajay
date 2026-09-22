@@ -40,11 +40,15 @@ const PAGE_TEMPLATE = {
   ],
 };
 
-// TRANSFORMER REGISTRY - cleanup first, then section breaks/metadata
+// TRANSFORMER REGISTRY - cleanup first, then section breaks/metadata, THEN the
+// homepage rail swap. sectionsTransformer must run before homepageTransformer:
+// it anchors section breaks to the static .image-list.list elements, which the
+// homepage transformer then replaces with index-driven blocks. If the swap ran
+// first, those selectors would be gone and the sections would merge into one.
 const transformers = [
   cleanupTransformer,
-  homepageTransformer,
   ...(PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [sectionsTransformer] : []),
+  homepageTransformer,
 ];
 
 /**

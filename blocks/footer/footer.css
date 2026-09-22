@@ -7,7 +7,7 @@ footer {
 footer .footer {
   max-width: 1680px;
   margin: auto;
-  padding: 40px 24px 24px;
+  padding: 16px 24px 24px; /* wknd: 16px top / 24px bottom (was 40px top, too tall) */
 }
 
 footer .footer p {
@@ -49,12 +49,16 @@ footer .footer-nav ul {
 /* "Follow Us" label: a <p> (not a heading) to keep it out of the document
    outline; styled to look like the original h4. */
 footer .footer-social .footer-social-label {
-  margin: 16px 0 8px;
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
+  margin: 0;
+
+  /* wknd "Follow Us": body font (Source Sans Pro), semibold 600, 16px,
+     UPPERCASE, #ebebeb. */
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 600;
   text-transform: uppercase;
   color: #ebebeb;
+  white-space: nowrap;
 }
 
 footer .footer-social ul {
@@ -101,22 +105,22 @@ footer .footer-social a.footer-social-instagram {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23202020' stroke-width='2'%3E%3Crect x='2' y='2' width='20' height='20' rx='5'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Ccircle cx='17.5' cy='6.5' r='1' fill='%23202020' stroke='none'/%3E%3C/svg%3E");
 }
 
-/* legal / attribution */
+/* legal / attribution — matches wknd's computed 12px / rgb(247,247,247),
+   not the grey (#aaa) this used to be. */
 footer .footer-legal {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #3a3a3a;
-  color: #aaa;
-  font-size: var(--body-font-size-xs);
-  line-height: 1.6;
+  color: #f7f7f7;
+  font-size: 12px;
+  line-height: 1.25; /* wknd: 15px for 12px legal text (was 1.6, too airy) */
 }
 
 footer .footer-legal p {
-  color: #aaa;
+  color: #f7f7f7;
 }
 
 footer .footer-legal a:any-link {
-  color: #aaa;
+  color: #f7f7f7;
   text-decoration: underline;
 }
 
@@ -125,11 +129,53 @@ footer .footer-legal a:hover {
 }
 
 @media (width >= 900px) {
+  /* wknd insets footer content ~152px each side (content centred to ~1136px),
+     not the near-edge 32px gutter we had. Cap to 1136px and centre. */
   footer .footer {
-    padding: 40px 32px 24px;
+    max-width: 1136px;
+    padding: 16px 0 24px; /* wknd: 16px top / 24px bottom */
+  }
+
+  /* wknd: brand, nav and social sit in one row across the top; the legal band
+     spans the full width beneath them. The four sections live inside the
+     .footer-content wrapper built by footer.js. */
+  footer .footer-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'brand nav social'
+      'legal legal legal';
+    align-items: center; /* wknd: logo, nav and social vertically centred in the top row */
+    column-gap: 48px;
+  }
+
+  footer .footer-brand { grid-area: brand; }
+  footer .footer-nav { grid-area: nav; }
+
+  /* legal band spans full width below; stretch it back to normal top-alignment
+     so align-items:center on the grid doesn't shift the block */
+  footer .footer-legal {
+    grid-area: legal;
+    align-self: stretch;
+  }
+
+  /* social column sits at the right end of the top row; "Follow Us" label and
+     the icon row sit side-by-side (wknd: label left of the icons, centred
+     vertically), right-aligned within the column. */
+  footer .footer-social {
+    grid-area: social;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-self: end;
+  }
+
+  footer .footer-social ul {
+    justify-content: flex-start;
   }
 
   footer .footer-nav ul {
     gap: 32px;
+    margin-top: 0;
   }
 }

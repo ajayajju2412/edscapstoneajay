@@ -3,12 +3,18 @@ import { networkFromLabel } from '../../scripts/social-icons.js';
 
 /**
  * Fetch the footer fragment as plain HTML.
- * Metadata-independent dual-fetch: /content first (localhost / aem up),
- * then root (DA/EDS production, where the fragment is served at site root).
+ * Environment-aware: on localhost (`aem up`) the fragment lives under
+ * /content/; on DA/EDS production it is served at the site root. Try the
+ * likely path FIRST for the current environment so production never logs a
+ * 404 for /content/footer.plain.html (and localhost never 404s for /footer...).
  */
 async function loadFooterFragment() {
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const paths = isLocal
+    ? ['/content/footer.plain.html', '/footer.plain.html']
+    : ['/footer.plain.html', '/content/footer.plain.html'];
+  let resp = await fetch(paths[0]);
+  if (!resp.ok) resp = await fetch(paths[1]);
   if (!resp.ok) return null;
   const html = await resp.text();
   const container = document.createElement('div');
@@ -26,6 +32,7 @@ export default async function decorate(block) {
   if (!fragment) return;
 
   const footer = document.createElement('div');
+  footer.className = 'footer-content';
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
   // Resolve relative image paths (authored relative in footer.plain.html)

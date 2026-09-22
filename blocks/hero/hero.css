@@ -26,7 +26,9 @@
 }
 
 .hero > div:first-child img {
-  height: auto;
+  /* clamp the banner to wknd's ~640px height instead of the image's intrinsic
+     height (which rendered ~960-1114px on the homepage) */
+  height: clamp(320px, 44vw, 640px);
   object-fit: cover;
 }
 
@@ -52,7 +54,12 @@
 
 @media (width >= 900px) {
   .hero > div:last-child {
-    margin-top: -120px;
+    /* deepen the overlap so the card sits mostly over the image and extends
+       ~40px below its bottom edge (matches wknd: 640px image, card overhang
+       ~40px → block ~680px). At -235px the card ended flush with the image
+       bottom, gluing the "See Trip" CTA to the photo edge; -212px lets the
+       card overhang the image bottom by ~40px like the source. */
+    margin-top: -212px;
     padding: 24px 28px 32px;
   }
 }

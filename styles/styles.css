@@ -33,6 +33,32 @@ header {
   height: var(--nav-height);
 }
 
+/* Desktop: make the header a sticky, self-sizing bar that stays pinned while
+   scrolling and compacts in lockstep with the inner nav grid (see
+   header.css .nav-scrolled). It sizes from its content (height:auto) so when
+   the inner grid shrinks 125px → ~74px the whole header shrinks too, rather
+   than a hardcoded height that leaves a dead gap. */
+@media (width >= 900px) {
+  header {
+    position: sticky;
+    top: 0;
+
+    /* above the carousel controls (z-index:2) so the full-bleed carousel's
+       prev/next buttons never paint over the sticky header while scrolling */
+    z-index: 10;
+    height: auto;
+  }
+}
+
+/* Contain the carousel's full-bleed 100vw breakout: 100vw counts the vertical
+   scrollbar's width, so the centred breakout overhangs each edge by ~half the
+   scrollbar and triggers a page-wide horizontal scrollbar. Clip the overflow on
+   main (overflow:clip, unlike hidden, does NOT create a scroll container, so the
+   sticky header keeps working). */
+main {
+  overflow-x: clip;
+}
+
 header .header,
 footer .footer {
   visibility: hidden;
@@ -312,6 +338,15 @@ main > .section:first-of-type {
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
+  margin: 0;
+  padding: 40px 0;
+}
+
+/* Featured Article band: wknd's grey (#ebebeb) is scoped to the TEXT column
+   only (source: cmp-teaser__content) — the image column stays unstyled, not
+   grey. See blocks/columns-featured/columns-featured.css for that scoping;
+   this section-level rule only handles the vertical spacing. */
+main .section.light-grey {
   margin: 0;
   padding: 40px 0;
 }
