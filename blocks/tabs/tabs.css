@@ -56,3 +56,33 @@
   max-width: 100%;
   height: auto;
 }
+
+/* wknd list markers: not the browser default round disc — the source uses an
+   icon-font glyph that renders as a small dark arrow tip (chevron). Replicate
+   with a CSS chevron drawn from a rotated border on ::before. */
+.tabs .tabs-panel ul {
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tabs .tabs-panel ul > li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.tabs .tabs-panel ul > li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.5em;
+  width: 0;
+  height: 0;
+
+  /* solid filled right-pointing triangle (▸) — matches the source's dark arrow
+     tip glyph, not a hollow chevron */
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--text-color);
+}

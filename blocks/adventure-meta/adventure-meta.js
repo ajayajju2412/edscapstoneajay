@@ -15,6 +15,11 @@ export default function decorate(block) {
     const value = cells[1];
     if (!label) return;
 
+    // wknd groups each label+value as one item (value stacked under label) with
+    // a left accent border; wrap the pair so the border/spacing applies per item
+    const item = document.createElement('div');
+    item.className = 'adventure-meta-item';
+
     const dt = document.createElement('dt');
     dt.className = 'adventure-meta-label';
     dt.append(...label.childNodes);
@@ -23,7 +28,8 @@ export default function decorate(block) {
     dd.className = 'adventure-meta-value';
     if (value) dd.append(...value.childNodes);
 
-    dl.append(dt, dd);
+    item.append(dt, dd);
+    dl.append(item);
   });
 
   block.textContent = '';

@@ -1,3 +1,12 @@
+/* the breadcrumb is the first section on adventure-detail pages; without top
+   spacing it sits flush against the header bottom. wknd gives it breathing room
+   below the header before the "Adventures > …" crumbs. Use padding (not margin)
+   so it isn't overridden by `main > .section:first-of-type { margin-top: 0 }`
+   or collapsed through <main>. */
+.breadcrumbs-container {
+  padding-top: 24px;
+}
+
 .breadcrumbs .breadcrumbs-list {
   display: flex;
   flex-wrap: wrap;
@@ -16,16 +25,18 @@
   align-items: center;
 }
 
-/* yellow chevron separator between crumbs (matches wknd) */
+/* separator between crumbs: wknd uses its icon-font glyph — a small solid
+   right-pointing arrow tip (▸) in the yellow accent colour. Draw it as a filled
+   CSS triangle. */
 .breadcrumbs .breadcrumbs-item:not(:last-child)::after {
   content: '';
   display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin: 0 8px;
-  border: solid var(--accent-color);
-  border-width: 2px 2px 0 0;
-  transform: rotate(45deg);
+  width: 0;
+  height: 0;
+  margin: 0 10px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--accent-color);
 }
 
 .breadcrumbs .breadcrumbs-item p {
@@ -37,8 +48,11 @@
   text-decoration: none;
 }
 
+/* wknd: crumb links stay dark on hover (only underline), not the blue
+   --link-color */
 .breadcrumbs .breadcrumbs-item a:hover {
-  color: var(--link-color);
+  color: var(--text-color);
+  text-decoration: underline;
 }
 
 .breadcrumbs .breadcrumbs-item[aria-current='page'] {

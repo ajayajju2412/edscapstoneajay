@@ -1,29 +1,90 @@
+/* wknd key-facts list: a vertical stack of label/value items, each with a 5px
+   grey left accent bar; the value sits directly below its label. */
 .adventure-meta .adventure-meta-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px 32px;
   margin: 24px 0;
+}
+
+.adventure-meta .adventure-meta-item {
+  border-left: 5px solid #ebebeb;
+  padding: 6px 0 6px 18px; /* wknd items sit taller than a bare label+value */
+  margin-bottom: 24px;
+}
+
+.adventure-meta .adventure-meta-item:last-child {
+  margin-bottom: 0;
 }
 
 .adventure-meta .adventure-meta-label {
   margin: 0;
   font-size: 12px;
   font-weight: 400;
+  line-height: 1.5;
   text-transform: uppercase;
   color: #696969;
 }
 
 .adventure-meta .adventure-meta-value {
-  margin: 4px 0 0;
+  margin: 8px 0 0; /* wknd: clear gap between label and its value */
   font-size: var(--body-font-size-xs);
   font-weight: 600;
+  line-height: 1.5;
   text-transform: uppercase;
   color: var(--text-color);
 }
 
 @media (width >= 900px) {
-  .adventure-meta .adventure-meta-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px 40px;
+  /* the adventure detail body is a single column on our import; wknd lays it out
+     as two columns — the metadata + "Share this Adventure" in a narrow left
+     column and the tabs (+ tab content) in a wider right column — all centred
+     to the ~1136px content width. The section wrapper holds, in order:
+       1. default-content-wrapper  → page <h1>       (full width, top)
+       2. adventure-meta-wrapper   → key facts        (left column)
+       3. default-content-wrapper  → "Share…" heading (left column)
+       4. tabs-wrapper             → tabs + panels     (right column, spans down)
+   */
+  main .section.adventure-meta-container.tabs-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+
+    /* rows: 1 = h1, 2 = meta, 3 = "Share…", 4 = flexible filler. The tall tabs
+       column spans rows 2-4; its excess height flows into the 1fr filler (row 4)
+       instead of stretching rows 2-3 — so "Share this Adventure" sits directly
+       under the meta list, not pushed far down by the Overview image. */
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 48px;
+    align-items: start;
+    max-width: 1136px;
+    margin-inline: auto;
+    padding: 0 32px;
+  }
+
+  /* h1 spans both columns on the top row. margin:0 (not the inherited auto)
+     so the wrapper fills its cell and the h1 aligns left, not centred. */
+  main .section.adventure-meta-container.tabs-container > .default-content-wrapper:first-child {
+    grid-column: 1 / -1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* metadata + "Share this Adventure" stack in the left column */
+  main .section.adventure-meta-container.tabs-container > .adventure-meta-wrapper,
+  main .section.adventure-meta-container.tabs-container
+    > .default-content-wrapper:not(:first-child) {
+    grid-column: 1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* tabs + tab content occupy the right column, spanning the meta/share rows
+     plus the flexible filler row so its height doesn't stretch meta/share */
+  main .section.adventure-meta-container.tabs-container > .tabs-wrapper {
+    grid-column: 2;
+    grid-row: 2 / span 3;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0; /* allow the column to shrink so text wraps instead of clipping */
   }
 }
