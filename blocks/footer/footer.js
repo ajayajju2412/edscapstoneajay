@@ -32,6 +32,7 @@ export default async function decorate(block) {
   if (!fragment) return;
 
   const footer = document.createElement('div');
+  footer.className = 'footer-content';
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
   // Resolve relative image paths (authored relative in footer.plain.html)

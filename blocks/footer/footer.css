@@ -129,7 +129,36 @@ footer .footer-legal a:hover {
     padding: 40px 32px 24px;
   }
 
+  /* wknd: brand, nav and social sit in one row across the top; the legal band
+     spans the full width beneath them. The four sections live inside the
+     .footer-content wrapper built by footer.js. */
+  footer .footer-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'brand nav social'
+      'legal legal legal';
+    align-items: start;
+    column-gap: 48px;
+  }
+
+  footer .footer-brand { grid-area: brand; }
+  footer .footer-nav { grid-area: nav; }
+  footer .footer-legal { grid-area: legal; }
+
+  /* the social label + icons align to the right edge under "brand nav social" */
+  footer .footer-social {
+    grid-area: social;
+    justify-self: end;
+    text-align: right;
+  }
+
+  footer .footer-social ul {
+    justify-content: flex-end;
+  }
+
   footer .footer-nav ul {
     gap: 32px;
+    margin-top: 0;
   }
 }
