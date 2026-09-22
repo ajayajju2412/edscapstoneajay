@@ -235,12 +235,22 @@ header nav .nav-search input {
   width: 100%;
   max-width: 200px;
   height: 42px; /* wknd search height */
-  border: 1px solid #d0d0d0;
+  border: 0; /* wknd: no border, just a tinted field */
   border-radius: 0;
-  padding: 0 12px 0 36px; /* left room for the inline icon; vertical centering via height + line-height */
+  padding: 0 12px 0 36px; /* left room for the inline icon */
+  background-color: rgb(235 235 235 / 54%); /* wknd tinted search field */
+  color: var(--text-color);
   font: inherit;
   font-size: var(--body-font-size-xs); /* wknd: 12px */
   line-height: 40px;
+}
+
+/* uppercase grey placeholder (wknd shows "SEARCH") */
+header nav .nav-search input::placeholder {
+  color: #767676;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 1;
 }
 
 header nav .nav-search-submit {
@@ -509,12 +519,9 @@ header nav[aria-expanded='true'] .nav-tools a {
     padding: 15px 17px;
   }
 
-  /* search box in the white nav row (matches source) */
+  /* search box in the white nav row (matches source: tinted grey, no border) */
   header nav .nav-search input {
     max-width: 180px;
-    border-color: #d0d0d0;
-    background-color: var(--background-color);
-    color: var(--text-color);
   }
 
   /* Scroll-triggered shrink (wknd): once scrolled, the logo row compacts while

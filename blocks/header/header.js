@@ -129,7 +129,7 @@ function buildSearch() {
   form.action = '/us/en/search';
   form.innerHTML = `
     <label class="nav-search-label" for="nav-search-input">Search</label>
-    <input id="nav-search-input" name="q" type="search" placeholder="Search" autocomplete="off" />
+    <input id="nav-search-input" name="q" type="search" placeholder="SEARCH" autocomplete="off" />
     <button type="submit" class="nav-search-submit" aria-label="Submit search"></button>`;
   return form;
 }
