@@ -54,12 +54,14 @@
 
 @media (width >= 900px) {
   .hero > div:last-child {
-    /* deepen the overlap so the card sits mostly over the image and extends
-       ~40px below its bottom edge (matches wknd: 640px image, card overhang
-       ~40px → block ~680px). At -235px the card ended flush with the image
-       bottom, gluing the "See Trip" CTA to the photo edge; -212px lets the
-       card overhang the image bottom by ~40px like the source. */
-    margin-top: -212px;
+    /* wknd anchors the card TOP a fixed 180px above the image bottom (measured
+       identical on both hero instances: image_bottom − card_top = 180px). A
+       short card (no CTA, e.g. "Experience the world with us") then lands
+       near-flush with the image bottom, while a taller card (with a CTA, e.g.
+       "Climbing New Zealand") overhangs ~40px — both matching the source. At
+       -212px the short card's bottom floated ~37px ABOVE the image, leaving a
+       strip of photo showing below the white card. */
+    margin-top: -180px;
     padding: 24px 28px 32px;
   }
 }
