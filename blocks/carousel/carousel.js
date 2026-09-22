@@ -145,6 +145,16 @@ export default async function decorate(block) {
   container.append(slidesWrapper);
   block.prepend(container);
 
+  // LCP: the first slide's image is the largest above-the-fold element on the
+  // homepage hero. EDS marks all content images loading="lazy" by default,
+  // which delays the hero paint. Eager-load the first slide's image and hint
+  // high fetch priority so it starts downloading immediately.
+  const firstImg = slidesWrapper.querySelector('.carousel-slide img');
+  if (firstImg) {
+    firstImg.setAttribute('loading', 'eager');
+    firstImg.setAttribute('fetchpriority', 'high');
+  }
+
   if (!isSingleSlide) {
     bindEvents(block);
   }
