@@ -106,6 +106,7 @@ main > .section > .carousel-container {
    shorter 400px banner on wknd, not the 640px hero banner used on the homepage
    carousel (which overlaps a content card). Scope the shorter height to slides
    whose content card is empty. */
+/* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-slide:not(:has(.carousel-slide-content > *)) {
   min-height: 400px;
 }
