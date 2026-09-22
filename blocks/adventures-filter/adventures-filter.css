@@ -12,6 +12,19 @@
   margin-inline: auto;
 }
 
+/* the "Current Adventures" heading is default content in the same section as
+   the filter block. wknd aligns it with the 1136px grid column (left edge at
+   the grid, not the full content width) and leaves ~31px beneath it before the
+   filter tabs. Cap the default-content wrapper to match and add the gap. */
+.adventures-filter-container .default-content-wrapper {
+  max-width: 1136px;
+  margin-inline: auto;
+}
+
+.adventures-filter-container .default-content-wrapper > h2 {
+  margin-bottom: 31px;
+}
+
 .adventures-filter .adventures-filter-filters {
   display: flex;
   flex-wrap: wrap;
