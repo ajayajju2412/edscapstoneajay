@@ -57,9 +57,9 @@
   height: auto;
 }
 
-/* wknd list markers: not the browser default round disc. Each item is prefixed
-   with a small dark square glyph (icon-font on the source); replicate with a
-   custom ::before so the bullet symbol matches. */
+/* wknd list markers: not the browser default round disc — the source uses an
+   icon-font glyph that renders as a small dark arrow tip (chevron). Replicate
+   with a CSS chevron drawn from a rotated border on ::before. */
 .tabs .tabs-panel ul {
   margin: 18px 0;
   padding: 0;
@@ -75,9 +75,11 @@
 .tabs .tabs-panel ul > li::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0.6em;
+  left: 2px;
+  top: 0.55em;
   width: 6px;
   height: 6px;
-  background-color: var(--text-color);
+  border: solid var(--text-color);
+  border-width: 2px 2px 0 0; /* top+right edges → a ">" arrow tip when rotated */
+  transform: rotate(45deg);
 }
