@@ -45,6 +45,12 @@
   main .section.adventure-meta-container.tabs-container {
     display: grid;
     grid-template-columns: 280px 1fr;
+
+    /* rows: 1 = h1, 2 = meta, 3 = "Share…", 4 = flexible filler. The tall tabs
+       column spans rows 2-4; its excess height flows into the 1fr filler (row 4)
+       instead of stretching rows 2-3 — so "Share this Adventure" sits directly
+       under the meta list, not pushed far down by the Overview image. */
+    grid-template-rows: auto auto auto 1fr;
     column-gap: 48px;
     align-items: start;
     max-width: 1136px;
@@ -71,10 +77,11 @@
     padding: 0;
   }
 
-  /* tabs + tab content occupy the right column, spanning the meta/share rows */
+  /* tabs + tab content occupy the right column, spanning the meta/share rows
+     plus the flexible filler row so its height doesn't stretch meta/share */
   main .section.adventure-meta-container.tabs-container > .tabs-wrapper {
     grid-column: 2;
-    grid-row: 2 / span 2;
+    grid-row: 2 / span 3;
     max-width: none;
     margin: 0;
     padding: 0;
