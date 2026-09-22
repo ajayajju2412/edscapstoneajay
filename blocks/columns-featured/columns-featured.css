@@ -32,15 +32,25 @@
 @media (width >= 900px) {
   .columns-featured > div {
     /* wknd cmp-teaser: image and text columns sit flush (no gap); stretch so
-       the grey text panel matches the image height into one clean rectangle. */
+       the grey text panel matches the image height into one clean rectangle.
+       Source constrains the teaser to 1136px centred (it does NOT span the full
+       content width), so cap and centre the row to match. */
     align-items: stretch;
     flex-direction: row;
     gap: 0;
+    max-width: 1136px;
+    margin-inline: auto;
   }
 
   /* image on the LEFT at ~62.5%, text on the RIGHT at ~37.5% — matches wknd's
      709px / 427px split. Fixed basis on each so the text can't expand past its
-     column. */
+     column. border-box so the text column's padding is contained within its
+     37.5% basis (content-box would add 72px and overflow the row, forcing a
+     page-wide horizontal scrollbar). */
+  .columns-featured > div > div {
+    box-sizing: border-box;
+  }
+
   .columns-featured > div > .columns-featured-img-col {
     flex: 0 0 62.5%;
     max-width: 62.5%;
