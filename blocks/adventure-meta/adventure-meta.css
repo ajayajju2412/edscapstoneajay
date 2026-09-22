@@ -6,8 +6,8 @@
 
 .adventure-meta .adventure-meta-item {
   border-left: 5px solid #ebebeb;
-  padding-left: 18px;
-  margin-bottom: 22px;
+  padding: 6px 0 6px 18px; /* wknd items sit taller than a bare label+value */
+  margin-bottom: 24px;
 }
 
 .adventure-meta .adventure-meta-item:last-child {
@@ -18,14 +18,16 @@
   margin: 0;
   font-size: 12px;
   font-weight: 400;
+  line-height: 1.5;
   text-transform: uppercase;
   color: #696969;
 }
 
 .adventure-meta .adventure-meta-value {
-  margin: 4px 0 0;
+  margin: 8px 0 0; /* wknd: clear gap between label and its value */
   font-size: var(--body-font-size-xs);
   font-weight: 600;
+  line-height: 1.5;
   text-transform: uppercase;
   color: var(--text-color);
 }
