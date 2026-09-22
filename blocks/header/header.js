@@ -40,16 +40,17 @@ function toggleMenu(nav, forceExpanded = null) {
 }
 
 // Locales grouped by country, mirroring wknd.site's language-navigation: a dark
-// panel of country headings, each with real locale links to that locale's path.
-// No flags — the source uses plain uppercase locale codes.
+// panel of country groups, each with a flag, a country heading and that
+// country's locales as real links. `code` keys the flag (see header.css
+// .nav-locale-group[data-country]).
 const LOCALE_GROUPS = [
-  { country: 'United States', locales: [['en-US', '/us/en'], ['es-US', '/us/es']] },
-  { country: 'Canada', locales: [['en-CA', '/ca/en'], ['fr-CA', '/ca/fr']] },
-  { country: 'Switzerland', locales: [['de-CH', '/ch/de'], ['fr-CH', '/ch/fr'], ['it-CH', '/ch/it']] },
-  { country: 'Germany', locales: [['de-DE', '/de/de']] },
-  { country: 'France', locales: [['fr-FR', '/fr/fr']] },
-  { country: 'Spain', locales: [['es-ES', '/es/es']] },
-  { country: 'Italy', locales: [['it-IT', '/it/it']] },
+  { country: 'United States', code: 'us', locales: [['en-US', '/us/en'], ['es-US', '/us/es']] },
+  { country: 'Canada', code: 'ca', locales: [['en-CA', '/ca/en'], ['fr-CA', '/ca/fr']] },
+  { country: 'Switzerland', code: 'ch', locales: [['de-CH', '/ch/de'], ['fr-CH', '/ch/fr'], ['it-CH', '/ch/it']] },
+  { country: 'Germany', code: 'de', locales: [['de-DE', '/de/de']] },
+  { country: 'France', code: 'fr', locales: [['fr-FR', '/fr/fr']] },
+  { country: 'Spain', code: 'es', locales: [['es-ES', '/es/es']] },
+  { country: 'Italy', code: 'it', locales: [['it-IT', '/it/it']] },
 ];
 
 /**
@@ -82,6 +83,7 @@ function buildLocaleSwitcher(nav) {
   LOCALE_GROUPS.forEach((group) => {
     const groupLi = document.createElement('li');
     groupLi.className = 'nav-locale-group';
+    groupLi.dataset.country = group.code;
 
     const heading = document.createElement('span');
     heading.className = 'nav-locale-country';
