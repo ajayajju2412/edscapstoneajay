@@ -23,6 +23,40 @@ const ADVENTURES_PREFIX = '/us/en/adventures/';
 // in the index are appended after these, so new categories still surface.
 const PREFERRED_ORDER = ['Climbing', 'Cycling', 'Skiing', 'Surfing', 'Travel'];
 
+// Fallback category per adventure slug, captured from wknd.site's "Current
+// Adventures" filter (each tab's membership). Used ONLY when the index row has
+// no `category` (the detail page's category metadata is currently absent on
+// DA). When the index does carry a category it wins, so restoring the meta
+// later needs no code change. Note this is the source's FILTER grouping — not
+// the "Activity" field: e.g. beervana/napa/gastronomic/riverside/yosemite →
+// Travel, mountain biking → Cycling. A slug may have more than one category.
+// Slugs absent here (e.g. cycling-southern-utah) are uncategorised on the
+// source and show only under "All".
+const CATEGORY_FALLBACK = {
+  'bali-surf-camp': 'Surfing',
+  'beervana-portland': 'Travel',
+  'climbing-new-zealand': 'Climbing',
+  'colorado-rock-climbing': 'Climbing',
+  'cycling-tuscany': 'Cycling, Travel',
+  'downhill-skiing-wyoming': 'Skiing',
+  'gastronomic-marais-tour': 'Travel',
+  'napa-wine-tasting': 'Travel',
+  'riverside-camping-australia': 'Travel',
+  'ski-touring-mont-blanc': 'Skiing',
+  'surf-camp-costa-rica': 'Surfing',
+  'tahoe-skiing': 'Skiing',
+  'west-coast-cycling': 'Cycling',
+  'whistler-mountain-biking': 'Cycling',
+  'yosemite-backpacking': 'Travel',
+};
+
+// The index `category` if present, else the slug fallback above.
+function categoryFor(entry) {
+  if (entry.category && entry.category.trim()) return entry.category;
+  const slug = (entry.path || '').replace(ADVENTURES_PREFIX, '').replace(/\/$/, '');
+  return CATEGORY_FALLBACK[slug] || '';
+}
+
 function toKey(s) {
   return (s || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
@@ -49,7 +83,7 @@ function buildCard(entry) {
   const li = document.createElement('li');
   li.className = 'adventures-filter-card';
   // space-separated category keys for filtering; "all" always matches
-  const keys = parseCategories(entry.category).map(toKey);
+  const keys = parseCategories(categoryFor(entry)).map(toKey);
   li.dataset.categories = ['all', ...keys].join(' ');
 
   const imageCell = document.createElement('div');
@@ -88,7 +122,7 @@ export default async function decorate(block) {
 
   // distinct categories present in the index, ordered by PREFERRED_ORDER then extras
   const present = new Set();
-  adventures.forEach((e) => parseCategories(e.category).forEach((c) => present.add(c)));
+  adventures.forEach((e) => parseCategories(categoryFor(e)).forEach((c) => present.add(c)));
   const ordered = [
     ...PREFERRED_ORDER.filter((c) => present.has(c)),
     ...[...present].filter((c) => !PREFERRED_ORDER.includes(c)).sort(),
