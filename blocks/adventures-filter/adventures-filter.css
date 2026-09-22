@@ -4,6 +4,14 @@
  * (uppercase tabs, active tab = dark pill).
  */
 
+/* wknd centres the Current Adventures section (tabs + grid) to ~1136px, not
+   the full content width — otherwise the grid bleeds edge-to-edge (~1376px).
+   Cap and centre the whole block. */
+.adventures-filter {
+  max-width: 1136px;
+  margin-inline: auto;
+}
+
 .adventures-filter .adventures-filter-filters {
   display: flex;
   flex-wrap: wrap;
