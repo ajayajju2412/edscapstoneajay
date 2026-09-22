@@ -4,6 +4,15 @@
  * row on desktop, each centered with a 164px circular avatar.
  */
 
+/* wknd's About Us page constrains its whole content column to ~1164px (138px
+   gutters at 1440px), not the sitewide 1680px content width. The contributors
+   block is unique to that page, so scope the narrower column to its section —
+   this constrains every wrapper in the section (headings, intro copy, and both
+   card grids) so the page reads with generous side padding like the source. */
+main > .section.contributors-container > div {
+  max-width: 1164px;
+}
+
 .contributors {
   display: grid;
   grid-template-columns: 1fr;
