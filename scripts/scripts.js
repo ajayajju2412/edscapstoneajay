@@ -152,11 +152,35 @@ function decorateButtons(main) {
 }
 
 /**
+ * The homepage's currently-live authored content is missing a section break
+ * between "Recent Articles" and "Next Adventures" (both ended up in one
+ * div), so they render as a single section — no gap, and the Featured
+ * Article's grey band visually runs into "Recent Articles". The import
+ * transformer now places new imports correctly, but existing content needs
+ * a reimport to pick that up; split client-side in the meantime so it
+ * renders correctly regardless. Harmless no-op once the content is fixed at
+ * the source (the heading won't be found where this expects it).
+ * @param {Element} main The main element
+ */
+function splitHomepageSections(main) {
+  if (window.location.pathname !== '/us/en') return;
+  const heading = [...main.querySelectorAll(':scope > div > h2')]
+    .find((h) => h.textContent.trim() === 'Next Adventures');
+  if (!heading) return;
+  const parent = heading.parentElement;
+  const siblings = [...parent.children];
+  const newSection = document.createElement('div');
+  siblings.slice(siblings.indexOf(heading)).forEach((el) => newSection.append(el));
+  parent.after(newSection);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  splitHomepageSections(main);
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);

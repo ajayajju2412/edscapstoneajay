@@ -201,7 +201,7 @@ header nav .nav-tools a:any-link {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-header nav .nav-tools ul {
+header nav .nav-tools ul:not(.nav-locale-list) {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -285,7 +285,8 @@ header nav .nav-locale-toggle::after {
   vertical-align: middle;
 }
 
-header nav .nav-locale-list {
+header nav .nav-locale-list:not([hidden]) {
+  display: block;
   position: absolute;
   right: 0;
   top: 100%;

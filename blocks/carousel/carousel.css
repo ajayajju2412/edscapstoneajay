@@ -112,38 +112,43 @@
   background-color: var(--text-color);
 }
 
-/* wknd: prev/next are small dark chevrons sitting in the light control strip
-   BELOW the image (right-aligned), NOT overlapping the photo. Anchoring to the
-   bottom of the slides-container places them over the light indicator strip
-   that follows; a white circle gives contrast so the dark chevron reads
-   clearly regardless of the image behind. */
+/* wknd: prev/next are small, transparent dark chevrons in the control strip
+   BELOW the image (right-aligned), NOT big circles overlapping the photo.
+   Confirmed against wknd.site computed styles: 26x24px, transparent bg, no
+   border/shadow. Appended into .carousel-controls (the indicators nav, see
+   carousel.js) so this positions against that strip, not the image. */
+.carousel .carousel-controls {
+  position: relative;
+}
+
 .carousel .carousel-navigation-buttons {
   position: absolute;
-  bottom: -48px; /* drop into the indicator strip below the image */
+  top: 50%;
   right: 12px;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 8px;
-  z-index: 3;
+  z-index: 2;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-navigation-buttons button {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 24px;
   margin: 0;
-  border: none;
-  border-radius: 50%;
+  border: none; /* wknd: no button border; the chevron is drawn by ::after */
+  border-radius: 0;
   padding: 0;
-  background-color: var(--background-color); /* white circle for contrast */
-  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
-  transition: background-color 0.2s;
+  background-color: transparent;
+  transition: opacity 0.2s;
 }
 
 .carousel .carousel-navigation-buttons button:hover,
 .carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: var(--light-color);
+  background-color: transparent;
+  opacity: 0.6;
 }
 
 .carousel .carousel-navigation-buttons button::after {

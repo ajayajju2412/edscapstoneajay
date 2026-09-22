@@ -112,6 +112,7 @@ export default async function decorate(block) {
   let slideIndicators;
   if (!isSingleSlide) {
     const slideIndicatorsNav = document.createElement('nav');
+    slideIndicatorsNav.classList.add('carousel-controls');
     slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-slide-indicators');
@@ -125,7 +126,11 @@ export default async function decorate(block) {
       <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
     `;
 
-    container.append(slideNavButtons);
+    // wknd: prev/next sit in the light control strip below the image (next to
+    // the dots), not overlapping the photo — append to the indicators nav,
+    // not the image container, so `position: absolute` resolves against that
+    // strip instead of the full-height slide image.
+    slideIndicatorsNav.append(slideNavButtons);
   }
 
   rows.forEach((row, idx) => {
