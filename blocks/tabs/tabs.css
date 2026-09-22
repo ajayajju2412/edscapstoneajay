@@ -56,3 +56,28 @@
   max-width: 100%;
   height: auto;
 }
+
+/* wknd list markers: not the browser default round disc. Each item is prefixed
+   with a small dark square glyph (icon-font on the source); replicate with a
+   custom ::before so the bullet symbol matches. */
+.tabs .tabs-panel ul {
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tabs .tabs-panel ul > li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.tabs .tabs-panel ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-color);
+}

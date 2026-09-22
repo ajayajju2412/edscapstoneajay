@@ -1,8 +1,17 @@
+/* wknd key-facts list: a vertical stack of label/value items, each with a 5px
+   grey left accent bar; the value sits directly below its label. */
 .adventure-meta .adventure-meta-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px 32px;
   margin: 24px 0;
+}
+
+.adventure-meta .adventure-meta-item {
+  border-left: 5px solid #ebebeb;
+  padding-left: 18px;
+  margin-bottom: 22px;
+}
+
+.adventure-meta .adventure-meta-item:last-child {
+  margin-bottom: 0;
 }
 
 .adventure-meta .adventure-meta-label {
@@ -41,10 +50,12 @@
     padding: 0 32px;
   }
 
-  /* h1 spans both columns on the top row */
+  /* h1 spans both columns on the top row. margin:0 (not the inherited auto)
+     so the wrapper fills its cell and the h1 aligns left, not centred. */
   main .section.adventure-meta-container.tabs-container > .default-content-wrapper:first-child {
     grid-column: 1 / -1;
     max-width: none;
+    margin: 0;
     padding: 0;
   }
 
@@ -54,6 +65,7 @@
     > .default-content-wrapper:not(:first-child) {
     grid-column: 1;
     max-width: none;
+    margin: 0;
     padding: 0;
   }
 
@@ -62,13 +74,8 @@
     grid-column: 2;
     grid-row: 2 / span 2;
     max-width: none;
+    margin: 0;
     padding: 0;
-  }
-
-  /* meta now sits in the narrow left column, so a 2-up grid fits (was 3-up,
-     which was cramped) */
-  .adventure-meta .adventure-meta-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px 32px;
+    min-width: 0; /* allow the column to shrink so text wraps instead of clipping */
   }
 }
