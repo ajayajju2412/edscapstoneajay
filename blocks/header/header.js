@@ -39,6 +39,83 @@ function toggleMenu(nav, forceExpanded = null) {
   if (button) button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
 }
 
+// A small representative set of locales for the switcher (the source lists many;
+// this shows the pattern with real flag glyphs). label is the trigger text.
+const LOCALES = [
+  {
+    code: 'en-US', label: 'en-US', name: 'United States', flag: '🇺🇸',
+  },
+  {
+    code: 'es-US', label: 'es-US', name: 'Estados Unidos', flag: '🇺🇸',
+  },
+  {
+    code: 'en-GB', label: 'en-GB', name: 'United Kingdom', flag: '🇬🇧',
+  },
+  {
+    code: 'fr-FR', label: 'fr-FR', name: 'France', flag: '🇫🇷',
+  },
+  {
+    code: 'de-DE', label: 'de-DE', name: 'Deutschland', flag: '🇩🇪',
+  },
+];
+
+/**
+ * Turn the authored "en-US" link into a real locale switcher: a toggle button
+ * that reveals a dropdown of locales (flag + label + region name). The source
+ * "en-US" was static text with no interaction.
+ * @param {HTMLElement} nav the decorated <nav>
+ */
+function buildLocaleSwitcher(nav) {
+  const link = [...nav.querySelectorAll('.nav-tools a[href]')]
+    .find((a) => /langnavtoggle/i.test(a.getAttribute('href') || '') || /^[a-z]{2}-[a-z]{2}$/i.test(a.textContent.trim()));
+  if (!link) return;
+
+  const current = link.textContent.trim() || 'en-US';
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nav-locale';
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'nav-locale-toggle';
+  toggle.setAttribute('aria-haspopup', 'listbox');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.textContent = current;
+
+  const list = document.createElement('ul');
+  list.className = 'nav-locale-list';
+  list.setAttribute('role', 'listbox');
+  list.hidden = true;
+  LOCALES.forEach((loc) => {
+    const li = document.createElement('li');
+    li.setAttribute('role', 'option');
+    li.setAttribute('aria-selected', loc.label === current ? 'true' : 'false');
+    li.innerHTML = `<span class="nav-locale-flag" aria-hidden="true">${loc.flag}</span>`
+      + `<span class="nav-locale-code">${loc.label}</span>`
+      + `<span class="nav-locale-name">${loc.name}</span>`;
+    li.addEventListener('click', () => {
+      toggle.textContent = loc.label;
+      [...list.children].forEach((c) => c.setAttribute('aria-selected', 'false'));
+      li.setAttribute('aria-selected', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      list.hidden = true;
+    });
+    list.append(li);
+  });
+
+  const close = () => { toggle.setAttribute('aria-expanded', 'false'); list.hidden = true; };
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+    list.hidden = open;
+  });
+  document.addEventListener('click', (e) => { if (!wrapper.contains(e.target)) close(); });
+  window.addEventListener('keydown', (e) => { if (e.code === 'Escape') close(); });
+
+  wrapper.append(toggle, list);
+  link.replaceWith(wrapper);
+}
+
 /**
  * Build the search form (form controls are created in JS, never in the fragment).
  * @returns {HTMLElement} the search form element
@@ -125,6 +202,9 @@ export default async function decorate(block) {
     navSections.append(buildSearch());
   }
 
+  // locale switcher: turn the static "en-US" link into a real dropdown
+  buildLocaleSwitcher(nav);
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -147,4 +227,19 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Scroll-triggered shrink (desktop): wknd's header compacts after scrolling
+  // down (~194px → ~114px). Add .nav-scrolled past a threshold; CSS handles the
+  // size transition. rAF-throttled so scrolling stays smooth.
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      navWrapper.classList.toggle('nav-scrolled', window.scrollY > 100);
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }
