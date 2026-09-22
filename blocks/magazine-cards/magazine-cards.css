@@ -1,5 +1,15 @@
 /* magazine-cards — article card rail; shares the adventure-cards look. */
 
+/* wknd's Magazine listing page constrains its whole content column to ~1164px
+   (138px gutters at 1440px), not the sitewide 1680px width — giving the page
+   generous side padding. The page is a single section carrying the magazine
+   blocks (columns-featured + magazine-cards + members-only), so scope the
+   narrower column to that section: every wrapper (h1, featured article, card
+   grid, members-only) then aligns to the 1164px column like the source. */
+main > .section.magazine-cards-container > div {
+  max-width: 1164px;
+}
+
 .magazine-cards > ul {
   list-style: none;
   margin: 0;
