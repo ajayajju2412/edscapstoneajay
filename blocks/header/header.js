@@ -94,6 +94,27 @@ export default async function decorate(block) {
   if (navSections) {
     const topList = navSections.querySelector(':scope > ul');
     if (topList) topList.classList.add('nav-list');
+
+    // active-page highlight: mark the nav link whose section matches the current
+    // path (wknd highlights the current section's link with a yellow block).
+    // Compare on the first path segment after /us/en so e.g.
+    // /us/en/adventures/bali-surf-camp still highlights "Adventures".
+    const here = window.location.pathname.replace(/\.html?$/, '').replace(/\/$/, '');
+    const sectionOf = (p) => {
+      const m = p.match(/^\/us\/en\/([^/]+)/);
+      return m ? m[1] : '';
+    };
+    const currentSection = sectionOf(here);
+    navSections.querySelectorAll('a[href]').forEach((a) => {
+      let dest;
+      try { dest = new URL(a.href, window.location.origin).pathname; } catch { return; }
+      dest = dest.replace(/\.html?$/, '').replace(/\/$/, '');
+      if (dest === here || (currentSection && sectionOf(dest) === currentSection)) {
+        a.setAttribute('aria-current', 'page');
+        a.closest('li')?.classList.add('nav-active');
+      }
+    });
+
     // search box lives in the nav row (right of the primary links), matching source
     navSections.append(buildSearch());
   }

@@ -92,6 +92,20 @@ main .default-content-wrapper > h2::after {
   border-bottom: 2px solid var(--accent-color);
 }
 
+/* "Share this Adventure" is an <h2> for correct heading order (it sits under
+   the page <h1>), but wknd.site renders it as a small uppercase label, not a
+   section title. Restore that appearance and drop the yellow underline. */
+main h2#share-this-adventure {
+  font-family: var(--body-font-family);
+  font-size: var(--heading-font-size-s);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+main .default-content-wrapper > h2#share-this-adventure::after {
+  content: none;
+}
+
 p,
 dl,
 ol,

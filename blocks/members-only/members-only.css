@@ -1,0 +1,82 @@
+/*
+ * members-only — 2-column grid of gated teaser cards (small thumbnail + lock
+ * badge, title, tagline, disabled Read More). Approximates wknd's Members Only
+ * locked-article treatment.
+ */
+
+.members-only {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px 32px;
+  margin: 24px 0;
+}
+
+.members-only .members-only-card {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #dadada;
+  padding: 16px;
+  background-color: var(--background-color);
+}
+
+.members-only .members-only-media {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  overflow: hidden;
+}
+
+.members-only .members-only-media img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  filter: grayscale(35%) brightness(0.92); /* subtle "locked" treatment */
+}
+
+/* yellow lock badge overlaid on the thumbnail */
+.members-only .members-only-lock {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23202020'%3E%3Cpath d='M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z'/%3E%3C/svg%3E");
+}
+
+.members-only .members-only-title {
+  margin: 0 0 4px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.members-only .members-only-tagline {
+  margin: 0 0 12px;
+  font-size: var(--body-font-size-xs);
+  color: #696969;
+}
+
+/* disabled Read More — muted, non-actionable (content is gated) */
+.members-only .members-only-cta {
+  display: inline-block;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #9a9a9a;
+  cursor: not-allowed;
+}
+
+@media (width >= 900px) {
+  .members-only {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

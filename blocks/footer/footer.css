@@ -45,9 +45,14 @@ footer .footer-nav ul {
 }
 
 /* social — icon glyphs inside light square boxes (matches wknd) */
-footer .footer-social h4 {
+
+/* "Follow Us" label: a <p> (not a heading) to keep it out of the document
+   outline; styled to look like the original h4. */
+footer .footer-social .footer-social-label {
   margin: 16px 0 8px;
+  font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-s);
+  font-weight: 700;
   text-transform: uppercase;
   color: #ebebeb;
 }

@@ -81,7 +81,14 @@
   color: var(--link-color);
 }
 
+/* wknd: descriptions clip to one line with an ellipsis so every card in a row
+   is the same height */
 .adventures-filter .adventures-filter-card-body p {
   margin: 0;
   font-size: var(--body-font-size-xs);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
