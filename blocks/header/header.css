@@ -14,6 +14,10 @@ header .nav-wrapper {
   z-index: 2;
   position: sticky; /* in-flow so <header> sizes to it, yet pinned while scrolling */
   top: 0;
+
+  /* contain the tools bar's 100vw full-bleed pseudo so it never adds a
+     horizontal scrollbar (clip keeps sticky positioning working) */
+  overflow-x: clip;
 }
 
 header nav {
@@ -26,7 +30,11 @@ header nav {
   align-items: center;
   gap: 0 16px;
   margin: auto;
-  max-width: 1680px;
+
+  /* wknd centres the header content to ~1150px (logo sits at x:152, not the
+     viewport edge). max-width 1200 + 32px padding lands the logo at 152 and the
+     search near 1288, matching the source's centred column. */
+  max-width: 1200px;
   height: auto;
   padding: 0 24px;
   font-family: var(--body-font-family);
@@ -437,17 +445,38 @@ header nav[aria-expanded='true'] .nav-tools a {
     visibility: hidden;
   }
 
-  /* band 1 — dark utility bar, right-aligned Sign In + en-US, full-bleed */
+  /* band 1 — dark utility bar, right-aligned Sign In + en-US. The nav content
+     is now centred at 1200px, but this dark bar must still span the full
+     viewport width. A ::before painted full-viewport-width (100vw) behind the
+     bar gives the full-bleed background while the Sign In / en-US content stays
+     right-aligned inside the centred column. header has overflow-x:clip so the
+     100vw pseudo never triggers a horizontal scrollbar. */
   header nav .nav-tools {
     grid-area: tools;
+    position: relative;
+
+    /* own stacking context so the ::before (z-index:-1) sits behind the tools
+       content but still ABOVE the white nav-wrapper background */
+    isolation: isolate;
     justify-content: flex-end;
     align-items: center;
     gap: 24px;
     height: 40px;
-    padding: 0 32px;
-    margin: 0 -32px;
-    background-color: var(--text-color);
+    padding: 0;
+    background-color: transparent;
     color: #ebebeb;
+  }
+
+  header nav .nav-tools::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+    width: 100vw;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
   }
 
   header nav .nav-tools ul {

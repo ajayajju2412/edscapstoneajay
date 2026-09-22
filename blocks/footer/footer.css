@@ -49,12 +49,17 @@ footer .footer-nav ul {
 /* "Follow Us" label: a <p> (not a heading) to keep it out of the document
    outline; styled to look like the original h4. */
 footer .footer-social .footer-social-label {
-  margin: 16px 0 8px;
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #ebebeb;
+  margin: 0 0 8px;
+
+  /* wknd "Follow Us": body font (Source Sans Pro), regular weight, 18px, NOT
+     uppercase, left-aligned, #f7f7f7 — not the bold serif uppercase label this
+     used to be. */
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: none;
+  text-align: left;
+  color: #f7f7f7;
 }
 
 footer .footer-social ul {
@@ -147,15 +152,16 @@ footer .footer-legal a:hover {
   footer .footer-nav { grid-area: nav; }
   footer .footer-legal { grid-area: legal; }
 
-  /* the social label + icons align to the right edge under "brand nav social" */
+  /* wknd left-aligns the "Follow Us" label and social icons within the social
+     column (not flush-right) */
   footer .footer-social {
     grid-area: social;
-    justify-self: end;
-    text-align: right;
+    justify-self: start;
+    text-align: left;
   }
 
   footer .footer-social ul {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   footer .footer-nav ul {
