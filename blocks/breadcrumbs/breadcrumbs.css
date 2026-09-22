@@ -48,8 +48,11 @@
   text-decoration: none;
 }
 
+/* wknd: crumb links stay dark on hover (only underline), not the blue
+   --link-color */
 .breadcrumbs .breadcrumbs-item a:hover {
-  color: var(--link-color);
+  color: var(--text-color);
+  text-decoration: underline;
 }
 
 .breadcrumbs .breadcrumbs-item[aria-current='page'] {
