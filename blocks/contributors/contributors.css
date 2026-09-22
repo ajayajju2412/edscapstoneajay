@@ -4,6 +4,24 @@
  * row on desktop, each centered with a 164px circular avatar.
  */
 
+/* wknd's About Us page constrains its whole content column to ~1164px (138px
+   gutters at 1440px), not the sitewide 1680px content width. The contributors
+   block is unique to that page, so scope the narrower column to its section —
+   this constrains every wrapper in the section (headings, intro copy, and both
+   card grids) so the page reads with generous side padding like the source. */
+main > .section.contributors-container > div {
+  max-width: 1164px;
+}
+
+/* wknd's "Meet the outstanding individuals…" / "Meet our extraordinary
+   travel guides…" section intros render at 14px (line-height 35px), not the
+   18px body copy. Match that size for the default-content paragraphs in the
+   contributors section. */
+main > .section.contributors-container .default-content-wrapper p {
+  font-size: var(--body-font-size-xs); /* 14px */
+  line-height: 2.5; /* ~35px, matches source */
+}
+
 .contributors {
   display: grid;
   grid-template-columns: 1fr;
@@ -41,6 +59,7 @@
 .contributors .contributors-role {
   margin: 0 0 12px;
   font-size: var(--body-font-size-xs);
+  font-weight: 600; /* wknd: role/designation is bold */
   text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--text-color);
@@ -56,9 +75,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+
+  /* wknd: 48x48 solid dark SQUARE buttons (not circular), light icon glyph */
+  width: 48px;
+  height: 48px;
+  border-radius: 0;
   background-color: var(--text-color);
   color: #ebebeb;
 }
