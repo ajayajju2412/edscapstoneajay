@@ -1,7 +1,22 @@
 footer {
+  position: relative;
   background-color: var(--text-color);
   color: #ebebeb;
   font-size: var(--body-font-size-xs);
+}
+
+/* wknd draws a faint divider line on the page (not inside the dark footer)
+   separating the last content section from the footer — a 1px #ebebeb rule,
+   centred to the ~1136px content width, sitting just above the footer. */
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1136px, calc(100% - 48px));
+  height: 1px;
+  background-color: #ebebeb;
 }
 
 footer .footer {
@@ -110,7 +125,6 @@ footer .footer-social a.footer-social-instagram {
 footer .footer-legal {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #3a3a3a;
   color: #f7f7f7;
   font-size: 12px;
   line-height: 1.25; /* wknd: 15px for 12px legal text (was 1.6, too airy) */
