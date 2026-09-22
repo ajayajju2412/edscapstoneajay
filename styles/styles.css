@@ -33,6 +33,16 @@ header {
   height: var(--nav-height);
 }
 
+/* Desktop: the fixed nav is taller than --nav-height (a 40px utility bar + an
+   84px logo/nav row + 1px border = 125px). The <header> placeholder must
+   reserve that full height, or fixed-position content (e.g. adventure-detail
+   breadcrumbs) slides under the logo. */
+@media (width >= 900px) {
+  header {
+    height: 125px;
+  }
+}
+
 header .header,
 footer .footer {
   visibility: hidden;

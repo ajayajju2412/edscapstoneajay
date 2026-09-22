@@ -3,12 +3,18 @@ const isDesktop = window.matchMedia('(min-width: 900px)');
 
 /**
  * Fetch the nav fragment as plain HTML.
- * Metadata-independent dual-fetch: /content first (localhost / aem up),
- * then root (DA/EDS production, where the fragment is served at site root).
+ * Environment-aware: on localhost (`aem up`) the fragment lives under
+ * /content/; on DA/EDS production it is served at the site root. Try the
+ * likely path FIRST for the current environment so production never logs a
+ * 404 for /content/nav.plain.html (and localhost never 404s for /nav...).
  */
 async function loadNavFragment() {
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const paths = isLocal
+    ? ['/content/nav.plain.html', '/nav.plain.html']
+    : ['/nav.plain.html', '/content/nav.plain.html'];
+  let resp = await fetch(paths[0]);
+  if (!resp.ok) resp = await fetch(paths[1]);
   if (!resp.ok) return null;
   const html = await resp.text();
   const container = document.createElement('div');

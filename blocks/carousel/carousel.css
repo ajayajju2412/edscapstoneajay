@@ -130,6 +130,7 @@
   width: 26px;
   height: 24px;
   margin: 0;
+  border: none; /* wknd: no button border; the chevron is drawn by ::after */
   border-radius: 0;
   padding: 0;
   background-color: transparent;
@@ -161,9 +162,33 @@
   left: calc(50% - 2px);
 }
 
+/* Mobile (< 600px): wknd does NOT overlap the content card over the image — it
+   stacks image on top, content card below. The desktop overlap (absolute image
+   + negative top margin) would otherwise paint the opaque white card over the
+   whole photo. Put the image back in normal flow and drop the negative margin. */
+@media (width < 600px) {
+  .carousel .carousel-slide {
+    justify-content: flex-start;
+    min-height: 0;
+  }
+
+  .carousel .carousel-slide .carousel-slide-image picture {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .carousel .carousel-slide .carousel-slide-content {
+    margin-top: 0;
+  }
+}
+
 @media (width >= 600px) {
+  /* wknd: controls stay pinned to the right edge of the image (not stretched
+     full-width, which would push the flex buttons to the left). */
   .carousel .carousel-navigation-buttons {
-    left: 24px;
     right: 24px;
   }
 

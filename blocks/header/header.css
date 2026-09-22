@@ -18,13 +18,14 @@ header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' var(--nav-height)
+    'tools tools tools' auto
+    'hamburger brand brand' var(--nav-height)
     'sections sections sections' 1fr / auto 1fr auto;
   align-items: center;
   gap: 0 16px;
   margin: auto;
   max-width: 1680px;
-  height: var(--nav-height);
+  height: auto;
   padding: 0 24px;
   font-family: var(--body-font-family);
 }
@@ -177,12 +178,25 @@ header nav .nav-sections ul ul {
 
 /* wknd: primary nav links do NOT change color on hover (stay --text-color) */
 
-/* tools: search + locale + sign-in */
+/* tools: search + locale + sign-in.
+   Mobile: a dark utility strip with light text (matches wknd + desktop). Before
+   this the Sign In / en-US links were dark rgb(32,32,32) and illegible on the
+   white header row. The desktop @media block overrides margin/padding below. */
 header nav .nav-tools {
   grid-area: tools;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 16px;
+  margin: 0 -24px;
+  padding: 8px 24px;
+  background-color: var(--text-color);
+  color: #ebebeb;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-tools a:any-link {
+  color: #ebebeb;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -343,6 +357,17 @@ header nav[aria-expanded='true'] .nav-tools a {
 
   header nav .nav-sections .nav-list > li {
     padding: 0;
+  }
+
+  /* wknd: hovering a nav link sets a yellow background (text colour unchanged).
+     Applied to the link so its padding matches the active-page highlight. */
+  header nav .nav-sections .nav-list > li > a:any-link {
+    padding: 6px 12px;
+  }
+
+  header nav .nav-sections .nav-list > li > a:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
   }
 
   /* active-page highlight: yellow block on the current section's nav link
