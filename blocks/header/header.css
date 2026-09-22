@@ -283,6 +283,11 @@ header nav .nav-locale-toggle::after {
   border: 4px solid transparent;
   border-top-color: currentcolor;
   vertical-align: middle;
+  transition: transform 0.15s ease;
+}
+
+header nav .nav-locale-toggle[aria-expanded='true']::after {
+  transform: rotate(180deg);
 }
 
 header nav .nav-locale-list:not([hidden]) {

@@ -101,22 +101,23 @@ footer .footer-social a.footer-social-instagram {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23202020' stroke-width='2'%3E%3Crect x='2' y='2' width='20' height='20' rx='5'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Ccircle cx='17.5' cy='6.5' r='1' fill='%23202020' stroke='none'/%3E%3C/svg%3E");
 }
 
-/* legal / attribution */
+/* legal / attribution — matches wknd's computed 12px / rgb(247,247,247),
+   not the grey (#aaa) this used to be. */
 footer .footer-legal {
   margin-top: 24px;
   padding-top: 16px;
   border-top: 1px solid #3a3a3a;
-  color: #aaa;
-  font-size: var(--body-font-size-xs);
+  color: #f7f7f7;
+  font-size: 12px;
   line-height: 1.6;
 }
 
 footer .footer-legal p {
-  color: #aaa;
+  color: #f7f7f7;
 }
 
 footer .footer-legal a:any-link {
-  color: #aaa;
+  color: #f7f7f7;
   text-decoration: underline;
 }
 

@@ -330,10 +330,11 @@ main .section.highlight {
   padding: 40px 0;
 }
 
-/* light-grey section (homepage Featured Article band): wknd's grey #ebebeb.
-   Set from the section metadata style="light-grey" (see wknd-sections). */
+/* Featured Article band: wknd's grey (#ebebeb) is scoped to the TEXT column
+   only (source: cmp-teaser__content) — the image column stays unstyled, not
+   grey. See blocks/columns-featured/columns-featured.css for that scoping;
+   this section-level rule only handles the vertical spacing. */
 main .section.light-grey {
-  background-color: #ebebeb;
   margin: 0;
   padding: 40px 0;
 }

@@ -7,9 +7,14 @@
   width: 100%;
 }
 
-/* text column after the image (image-first in both DOM orders) */
-.columns-featured > div > div {
+/* text column after the image (image-first in both DOM orders).
+   wknd's grey (#ebebeb) is scoped to this text column only — the image
+   column has no background at all, matching source's cmp-teaser__content
+   vs cmp-teaser__image split. */
+.columns-featured > div > div:not(.columns-featured-img-col) {
   order: 1;
+  background-color: #ebebeb;
+  padding: 24px;
 }
 
 .columns-featured > div > .columns-featured-img-col {
@@ -22,7 +27,9 @@
 
 @media (width >= 900px) {
   .columns-featured > div {
-    align-items: center;
+    /* stretch (not center) so the grey text column matches the image's
+       height, giving a clean rectangular grey panel beside it */
+    align-items: stretch;
     flex-direction: row;
     gap: 24px;
   }
@@ -30,5 +37,12 @@
   /* keep image on the LEFT, text on the RIGHT — matches wknd */
   .columns-featured > div > div {
     flex: 1;
+  }
+
+  .columns-featured > div > div:not(.columns-featured-img-col) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32px 40px;
   }
 }

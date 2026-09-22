@@ -86,13 +86,15 @@
   display: none;
 }
 
+/* wknd: the control strip (dots + arrows) has no background at all — it sits
+   directly on the page background, not a grey band. */
 .carousel .carousel-slide-indicators {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px 12px;
   padding: 12px;
-  background-color: var(--light-color);
+  background-color: transparent;
   line-height: 0;
 }
 
@@ -102,7 +104,7 @@
   margin: 0;
   padding: 0;
   border-radius: 50%;
-  background-color: #dadada;
+  background-color: #afafaf;
   transition: background-color 0.2s;
 }
 
