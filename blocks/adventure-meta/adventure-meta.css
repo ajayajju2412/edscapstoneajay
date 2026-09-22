@@ -22,8 +22,53 @@
 }
 
 @media (width >= 900px) {
+  /* the adventure detail body is a single column on our import; wknd lays it out
+     as two columns — the metadata + "Share this Adventure" in a narrow left
+     column and the tabs (+ tab content) in a wider right column — all centred
+     to the ~1136px content width. The section wrapper holds, in order:
+       1. default-content-wrapper  → page <h1>       (full width, top)
+       2. adventure-meta-wrapper   → key facts        (left column)
+       3. default-content-wrapper  → "Share…" heading (left column)
+       4. tabs-wrapper             → tabs + panels     (right column, spans down)
+   */
+  main .section.adventure-meta-container.tabs-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    column-gap: 48px;
+    align-items: start;
+    max-width: 1136px;
+    margin-inline: auto;
+    padding: 0 32px;
+  }
+
+  /* h1 spans both columns on the top row */
+  main .section.adventure-meta-container.tabs-container > .default-content-wrapper:first-child {
+    grid-column: 1 / -1;
+    max-width: none;
+    padding: 0;
+  }
+
+  /* metadata + "Share this Adventure" stack in the left column */
+  main .section.adventure-meta-container.tabs-container > .adventure-meta-wrapper,
+  main .section.adventure-meta-container.tabs-container
+    > .default-content-wrapper:not(:first-child) {
+    grid-column: 1;
+    max-width: none;
+    padding: 0;
+  }
+
+  /* tabs + tab content occupy the right column, spanning the meta/share rows */
+  main .section.adventure-meta-container.tabs-container > .tabs-wrapper {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    max-width: none;
+    padding: 0;
+  }
+
+  /* meta now sits in the narrow left column, so a 2-up grid fits (was 3-up,
+     which was cramped) */
   .adventure-meta .adventure-meta-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
   }
 }
