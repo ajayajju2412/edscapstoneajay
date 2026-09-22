@@ -39,29 +39,24 @@ function toggleMenu(nav, forceExpanded = null) {
   if (button) button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
 }
 
-// Inline SVG flags (24x16) — emoji flags don't render on most desktop browsers
-// (they fall back to the two-letter country code as text), so use real SVGs.
-const FLAG_SVGS = {
-  us: '<svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#b22234"/><g fill="#fff"><rect y="1.85" width="24" height="1.23"/><rect y="4.31" width="24" height="1.23"/><rect y="6.77" width="24" height="1.23"/><rect y="9.23" width="24" height="1.23"/><rect y="11.69" width="24" height="1.23"/><rect y="14.15" width="24" height="1.23"/></g><rect width="10" height="8.62" fill="#3c3b6e"/></svg>',
-  gb: '<svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#012169"/><path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3"/><path d="M0 0l24 16M24 0L0 16" stroke="#c8102e" stroke-width="1.5"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5"/><path d="M12 0v16M0 8h24" stroke="#c8102e" stroke-width="3"/></svg>',
-  fr: '<svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="8" height="16" fill="#0055a4"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ef4135"/></svg>',
-  de: '<svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="5.33" fill="#000"/><rect y="5.33" width="24" height="5.33" fill="#dd0000"/><rect y="10.66" width="24" height="5.34" fill="#ffce00"/></svg>',
-};
-
-// A small representative set of locales for the switcher (the source lists many;
-// this shows the pattern). label is the trigger text; flag keys into FLAG_SVGS.
-const LOCALES = [
-  { label: 'en-US', name: 'United States', flag: 'us' },
-  { label: 'es-US', name: 'Estados Unidos', flag: 'us' },
-  { label: 'en-GB', name: 'United Kingdom', flag: 'gb' },
-  { label: 'fr-FR', name: 'France', flag: 'fr' },
-  { label: 'de-DE', name: 'Deutschland', flag: 'de' },
+// Locales grouped by country, mirroring wknd.site's language-navigation: a dark
+// panel of country headings, each with real locale links to that locale's path.
+// No flags — the source uses plain uppercase locale codes.
+const LOCALE_GROUPS = [
+  { country: 'United States', locales: [['en-US', '/us/en'], ['es-US', '/us/es']] },
+  { country: 'Canada', locales: [['en-CA', '/ca/en'], ['fr-CA', '/ca/fr']] },
+  { country: 'Switzerland', locales: [['de-CH', '/ch/de'], ['fr-CH', '/ch/fr'], ['it-CH', '/ch/it']] },
+  { country: 'Germany', locales: [['de-DE', '/de/de']] },
+  { country: 'France', locales: [['fr-FR', '/fr/fr']] },
+  { country: 'Spain', locales: [['es-ES', '/es/es']] },
+  { country: 'Italy', locales: [['it-IT', '/it/it']] },
 ];
 
 /**
- * Turn the authored "en-US" link into a real locale switcher: a toggle button
- * that reveals a dropdown of locales (flag + label + region name). The source
- * "en-US" was static text with no interaction.
+ * Turn the authored "en-US" link into a real locale switcher matching wknd's
+ * language navigation: a toggle that opens a dark panel of country groups, each
+ * listing that country's locales as real links. The source "en-US" was static
+ * text with no interaction.
  * @param {HTMLElement} nav the decorated <nav>
  */
 function buildLocaleSwitcher(nav) {
@@ -76,42 +71,48 @@ function buildLocaleSwitcher(nav) {
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'nav-locale-toggle';
-  toggle.setAttribute('aria-haspopup', 'listbox');
+  toggle.setAttribute('aria-haspopup', 'true');
   toggle.setAttribute('aria-expanded', 'false');
   toggle.textContent = current;
 
-  const list = document.createElement('ul');
-  list.className = 'nav-locale-list';
-  list.setAttribute('role', 'listbox');
-  list.hidden = true;
-  LOCALES.forEach((loc) => {
-    const li = document.createElement('li');
-    li.setAttribute('role', 'option');
-    li.setAttribute('aria-selected', loc.label === current ? 'true' : 'false');
-    li.innerHTML = `<span class="nav-locale-flag" aria-hidden="true">${FLAG_SVGS[loc.flag] || ''}</span>`
-      + `<span class="nav-locale-code">${loc.label}</span>`
-      + `<span class="nav-locale-name">${loc.name}</span>`;
-    li.addEventListener('click', () => {
-      toggle.textContent = loc.label;
-      [...list.children].forEach((c) => c.setAttribute('aria-selected', 'false'));
-      li.setAttribute('aria-selected', 'true');
-      toggle.setAttribute('aria-expanded', 'false');
-      list.hidden = true;
+  // dark panel: one <ul> of country groups, each group a heading + locale links
+  const panel = document.createElement('ul');
+  panel.className = 'nav-locale-list';
+  panel.hidden = true;
+  LOCALE_GROUPS.forEach((group) => {
+    const groupLi = document.createElement('li');
+    groupLi.className = 'nav-locale-group';
+
+    const heading = document.createElement('span');
+    heading.className = 'nav-locale-country';
+    heading.textContent = group.country;
+    groupLi.append(heading);
+
+    const localeList = document.createElement('ul');
+    group.locales.forEach(([label, path]) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = path;
+      a.textContent = label;
+      if (label === current) a.setAttribute('aria-current', 'true');
+      li.append(a);
+      localeList.append(li);
     });
-    list.append(li);
+    groupLi.append(localeList);
+    panel.append(groupLi);
   });
 
-  const close = () => { toggle.setAttribute('aria-expanded', 'false'); list.hidden = true; };
+  const close = () => { toggle.setAttribute('aria-expanded', 'false'); panel.hidden = true; };
   toggle.addEventListener('click', (e) => {
     e.stopPropagation();
     const open = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-    list.hidden = open;
+    panel.hidden = open;
   });
   document.addEventListener('click', (e) => { if (!wrapper.contains(e.target)) close(); });
   window.addEventListener('keydown', (e) => { if (e.code === 'Escape') close(); });
 
-  wrapper.append(toggle, list);
+  wrapper.append(toggle, panel);
   link.replaceWith(wrapper);
 }
 

@@ -290,60 +290,58 @@ header nav .nav-locale-toggle[aria-expanded='true']::after {
   transform: rotate(180deg);
 }
 
+/* dark language-navigation panel (matches wknd: rgb(32,32,32), 360px, shadow) */
 header nav .nav-locale-list:not([hidden]) {
   display: block;
   position: absolute;
   right: 0;
   top: 100%;
   z-index: 5;
-  width: max-content;
-  max-width: 240px;
+  width: 360px;
+  max-width: 90vw;
   margin: 8px 0 0;
-  padding: 4px 0;
+  padding: 16px 0;
   list-style: none;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  box-shadow: 0 4px 16px rgb(0 0 0 / 25%);
+  background-color: var(--text-color);
+  box-shadow: 0 5px 10px rgb(0 0 0 / 25%);
+}
+
+header nav .nav-locale-group {
+  padding: 8px 24px;
+  list-style: none;
+}
+
+/* country heading — small light uppercase label (wknd: 12px, #ebebeb) */
+header nav .nav-locale-country {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px; /* wknd country heading */
+  text-transform: uppercase;
+  color: #ebebeb;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-header nav .nav-locale-list li {
+header nav .nav-locale-group ul {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  font-size: var(--body-font-size-xs);
-  text-transform: none;
-  cursor: pointer;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-header nav .nav-locale-list li:hover,
-header nav .nav-locale-list li[aria-selected='true'] {
-  background-color: var(--light-color);
-}
-
-header nav .nav-locale-flag {
-  display: inline-flex;
-  flex: 0 0 auto;
-  width: 24px;
-  height: 16px;
-  line-height: 1;
-}
-
-header nav .nav-locale-flag svg {
-  display: block;
-  width: 24px;
-  height: 16px;
-  border: 1px solid rgb(0 0 0 / 12%);
-}
-
-header nav .nav-locale-code {
-  font-weight: 600;
+/* locale links — 14px uppercase light (wknd: #f7f7f7) */
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-locale-group a:any-link {
+  font-size: var(--heading-font-size-s);
   text-transform: uppercase;
+  color: #f7f7f7;
 }
 
-header nav .nav-locale-name {
-  color: #696969;
+header nav .nav-locale-group a:hover,
+header nav .nav-locale-group a[aria-current='true'] {
+  color: #fff;
+  text-decoration: underline;
 }
 
 /* mobile drawer: dark background with light text (matches wknd mobile nav).
