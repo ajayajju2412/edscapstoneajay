@@ -79,9 +79,23 @@ export default async function decorate(block) {
   }
   block.textContent = '';
 
+  // On the "recent" (homepage) rail, exclude whichever article is already shown
+  // as the Featured Article above so it isn't duplicated. The featured article
+  // is whatever a preceding block on the page links to under /us/en/magazine/;
+  // derive it from the DOM (auto-adapts if the featured article changes) rather
+  // than hardcoding a path.
+  const excluded = new Set();
+  if (recent) {
+    const featuredLink = [...document.querySelectorAll('main .columns-featured a[href], main .columns a[href]')]
+      .map((a) => { try { return new URL(a.href, window.location.origin).pathname.replace(/\.html?$/, ''); } catch { return null; } })
+      .find((p) => p && p.startsWith(MAGAZINE_PREFIX));
+    if (featuredLink) excluded.add(featuredLink);
+  }
+
   // Every magazine-article page in the index (scoped by path in helix-query.yaml).
   const articles = (await fetchIndex())
-    .filter((e) => e.path && e.path.startsWith(MAGAZINE_PREFIX) && e.image)
+    .filter((e) => e.path && e.path.startsWith(MAGAZINE_PREFIX) && e.image
+      && !excluded.has(e.path.replace(/\.html?$/, '')))
     .sort((a, b) => (recent
       // newest first by lastModified (falling back to 0)
       ? (Number(b.lastModified) || 0) - (Number(a.lastModified) || 0)
