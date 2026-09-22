@@ -54,7 +54,10 @@
 
 @media (width >= 900px) {
   .hero > div:last-child {
-    margin-top: -120px;
+    /* deepen the overlap so the card sits mostly over the image and extends
+       only ~40px below its bottom edge (matches wknd: 640px image, card
+       overhang ~40px → block ~680px, same as the hero carousel). */
+    margin-top: -235px;
     padding: 24px 28px 32px;
   }
 }

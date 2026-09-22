@@ -44,22 +44,44 @@ function convertRails(element) {
 
   roots.forEach((list) => {
     const kind = linkKind(list);
+    let block = null;
     if (kind === 'magazine') {
       // homepage rail: 4 most-recent magazine articles (see magazine-cards.js).
-      const block = WebImporter.Blocks.createBlock(document, {
+      block = WebImporter.Blocks.createBlock(document, {
         name: 'magazine-cards',
         cells: [['4 recent']],
       });
       railTarget(list).replaceWith(block);
     } else if (kind === 'adventures') {
       // homepage rail: default 4 adventures (see adventure-cards.js).
-      const block = WebImporter.Blocks.createBlock(document, {
+      block = WebImporter.Blocks.createBlock(document, {
         name: 'adventure-cards',
         cells: [['']],
       });
       railTarget(list).replaceWith(block);
     }
+    if (block) pullTitleIntoSection(block);
   });
+}
+
+/**
+ * A rail's section title (e.g. "Recent Articles") sits in the source DOM BEFORE
+ * the rail, so the section break inserted by wknd-sections lands AFTER the title
+ * — trapping it in the previous section (e.g. the grey Featured band). Move the
+ * heading to just after the break so it belongs to the rail's own section.
+ */
+function pullTitleIntoSection(block) {
+  const hr = block.previousElementSibling;
+  if (!hr || hr.tagName !== 'HR') return;
+  const before = hr.previousElementSibling;
+  if (!before) return;
+  // the section title is a heading (or a wrapper whose last child is a heading)
+  const heading = /^H[1-6]$/.test(before.tagName)
+    ? before
+    : before.querySelector && [...before.querySelectorAll('h1,h2,h3')].pop();
+  if (!heading) return;
+  // move the heading to sit right after the break, before the rail block
+  hr.after(heading);
 }
 
 export default function transform(hookName, element, payload) {

@@ -11,7 +11,8 @@ header .nav-wrapper {
   border-bottom: 1px solid #e8e8e8;
   width: 100%;
   z-index: 2;
-  position: fixed;
+  position: sticky; /* in-flow so <header> sizes to it, yet pinned while scrolling */
+  top: 0;
 }
 
 header nav {
@@ -289,7 +290,8 @@ header nav .nav-locale-list {
   right: 0;
   top: 100%;
   z-index: 5;
-  min-width: 200px;
+  width: max-content;
+  max-width: 240px;
   margin: 8px 0 0;
   padding: 4px 0;
   list-style: none;
@@ -315,8 +317,18 @@ header nav .nav-locale-list li[aria-selected='true'] {
 }
 
 header nav .nav-locale-flag {
-  font-size: 18px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 16px;
   line-height: 1;
+}
+
+header nav .nav-locale-flag svg {
+  display: block;
+  width: 24px;
+  height: 16px;
+  border: 1px solid rgb(0 0 0 / 12%);
 }
 
 header nav .nav-locale-code {
@@ -344,10 +356,6 @@ header nav[aria-expanded='true'] .nav-tools a {
 }
 
 @media (width >= 900px) {
-  header .nav-wrapper {
-    position: fixed;
-  }
-
   /* Two bands: a dark utility bar (tools) spanning full width on top, then a
      white main row with logo on the left and nav + search on the right. */
   header nav {

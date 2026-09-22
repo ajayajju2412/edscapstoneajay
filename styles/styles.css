@@ -33,13 +33,17 @@ header {
   height: var(--nav-height);
 }
 
-/* Desktop: the fixed nav is taller than --nav-height (a 40px utility bar + an
-   84px logo/nav row + 1px border = 125px). The <header> placeholder must
-   reserve that full height, or fixed-position content (e.g. adventure-detail
-   breadcrumbs) slides under the logo. */
+/* Desktop: make the header a sticky, self-sizing bar that stays pinned while
+   scrolling and compacts in lockstep with the inner nav grid (see
+   header.css .nav-scrolled). It sizes from its content (height:auto) so when
+   the inner grid shrinks 125px → ~74px the whole header shrinks too, rather
+   than a hardcoded height that leaves a dead gap. */
 @media (width >= 900px) {
   header {
-    height: 125px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: auto;
   }
 }
 
