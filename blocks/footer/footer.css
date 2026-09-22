@@ -113,7 +113,7 @@ footer .footer-legal {
   border-top: 1px solid #3a3a3a;
   color: #f7f7f7;
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.25; /* wknd: 15px for 12px legal text (was 1.6, too airy) */
 }
 
 footer .footer-legal p {

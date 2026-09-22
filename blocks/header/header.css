@@ -553,23 +553,14 @@ header nav[aria-expanded='true'] .nav-tools a {
     max-width: 180px;
   }
 
-  /* Scroll-triggered shrink (wknd): once scrolled, the logo row compacts while
-     the utility bar (Sign In + language nav) STAYS visible — matching the
-     source, which keeps the en-US toggle reachable on scroll. Only the brand
-     row height and logo shrink; the tools bar is untouched so the dark locale
-     panel never gets clipped/hidden mid-use. */
-  header nav .nav-brand img {
-    transition: width 0.2s ease, height 0.2s ease;
-  }
-
+  /* Scroll-triggered shrink (wknd): once scrolled, the brand row compacts a
+     little while the utility bar (Sign In + language nav) STAYS visible —
+     matching the source, which keeps the en-US toggle reachable on scroll.
+     wknd keeps the logo at its full 128x48 on scroll (it does NOT shrink the
+     logo), so only the brand-row height reduces. */
   header .nav-wrapper.nav-scrolled nav {
     grid-template:
       'tools tools' 40px
       'brand sections' 56px / auto 1fr;
-  }
-
-  header .nav-wrapper.nav-scrolled .nav-brand img {
-    width: 107px;
-    height: 40px;
   }
 }
