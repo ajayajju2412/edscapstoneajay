@@ -16,6 +16,16 @@
   display: block;
 }
 
+/* wknd "locked" fog: the whole gated card (title, tagline, button, image) is
+   faded to 65% opacity so it reads as un-unlocked content — everything EXCEPT
+   the lock badge, which stays fully opaque to signal the gate. */
+.members-only .members-only-title,
+.members-only .members-only-tagline,
+.members-only .members-only-cta,
+.members-only .members-only-media {
+  opacity: 0.65;
+}
+
 /* title row: the yellow lock badge overlaps the left of the serif title */
 .members-only .members-only-titlerow {
   position: relative;
