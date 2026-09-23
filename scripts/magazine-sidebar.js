@@ -141,6 +141,28 @@ export default async function decorateMagazineSidebar(main) {
   mainCol.className = 'magazine-article-main';
   bodyWrappers.forEach((w) => mainCol.append(w));
 
+  // Byline: the "By <author>" line renders bold + uppercase on wknd (it's an
+  // <h4> there; our import made it a <p>). Tag it so CSS can style it.
+  const byline = [...mainCol.querySelectorAll('p')]
+    .find((p) => /^By\s+\S/i.test(p.textContent.trim()));
+  if (byline) byline.classList.add('magazine-article-byline');
+
+  // wknd shows the definition line ("noun") inside the grey quote box, right
+  // under the quotation. Our import placed it as a standalone paragraph right
+  // after the quote block; move it into the blockquote so it sits in the grey
+  // box like the source.
+  const quote = mainCol.querySelector('.quote blockquote');
+  if (quote) {
+    const quoteWrapper = mainCol.querySelector('.quote-wrapper') || quote.closest('.quote')?.parentElement;
+    const afterWrapper = quoteWrapper?.nextElementSibling;
+    const nounP = afterWrapper
+      && [...afterWrapper.querySelectorAll('p')].find((p) => /^noun$/i.test(p.textContent.trim()));
+    if (nounP) {
+      nounP.classList.add('quote-definition');
+      quote.append(nounP);
+    }
+  }
+
   const aside = document.createElement('aside');
   aside.className = 'magazine-article-aside';
   aside.append(buildShare());

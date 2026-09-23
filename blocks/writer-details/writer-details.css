@@ -40,6 +40,24 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
   padding: 0;
 }
 
+/* wknd body copy: dark 18px text with generous 45px line-height (ours inherited
+   the tighter sitewide 1.75). Scope the looser leading to the article body. */
+.magazine-article-main p {
+  color: var(--text-color);
+  line-height: 2.5;
+}
+
+/* byline "By <author>": bold, uppercase, 16px (wknd renders it as an <h4>;
+   our import made it a <p>) */
+.magazine-article-main .magazine-article-byline {
+  margin: 21px 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
 /* sidebar */
 .magazine-article-aside {
   font-family: var(--body-font-family);

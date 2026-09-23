@@ -1,17 +1,33 @@
-.quote blockquote {
-  margin: 0 auto;
-  padding: 0 24px;
-  max-width: 900px;
+/* wknd magazine pull-quote: a light-grey block holding a large serif (Asar)
+   bold quotation, with an optional small italic definition line ("noun")
+   beneath it. */
+.quote {
+  background-color: #ebebeb;
+  margin: 18px 0;
+  padding: 14px;
 }
 
-@media (width >= 900px) {
-  .quote blockquote {
-    padding: 0 32px;
-  }
+.quote blockquote {
+  margin: 0;
+  padding: 0;
 }
 
 .quote blockquote .quote-quotation {
-  font-size: 120%;
+  font-family: var(--heading-font-family); /* Asar serif */
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+/* the definition line ("noun"), moved into the quote box by
+   scripts/magazine-sidebar.js — small, italic, bold */
+.quote blockquote .quote-definition {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--text-color);
 }
 
 .quote blockquote .quote-quotation > :first-child {
