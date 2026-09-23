@@ -63,6 +63,21 @@ async function fetchArticles() {
   }
 }
 
+function buildShare() {
+  // wknd shows a "SHARE THIS STORY" heading here. Its only control on the
+  // source is a Pinterest widget button that renders at 0x0 (the embed doesn't
+  // load), so visually the section is just the heading — no social icons and no
+  // visible Save button. Render the heading only to match.
+  const wrap = document.createElement('div');
+  wrap.className = 'magazine-sidebar-share';
+
+  const heading = document.createElement('h5');
+  heading.className = 'magazine-sidebar-heading';
+  heading.textContent = 'SHARE THIS STORY';
+  wrap.append(heading);
+  return wrap;
+}
+
 function buildRelated(articles) {
   const here = currentPath();
   const items = articles
@@ -128,11 +143,16 @@ export default async function decorateMagazineSidebar(main) {
 
   const aside = document.createElement('aside');
   aside.className = 'magazine-article-aside';
+  aside.append(buildShare());
 
   grid.append(mainCol, aside);
   section.append(grid);
 
   // populate the index-driven related list (async; layout already in place)
   const related = buildRelated(await fetchArticles());
-  if (related) aside.append(related);
+  if (related) {
+    const sep = document.createElement('hr');
+    sep.className = 'magazine-sidebar-sep';
+    aside.append(sep, related);
+  }
 }

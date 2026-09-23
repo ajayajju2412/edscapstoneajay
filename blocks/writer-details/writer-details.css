@@ -45,31 +45,49 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
   font-family: var(--body-font-family);
 }
 
+.magazine-sidebar-heading {
+  margin: 0 0 16px;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.magazine-sidebar-sep {
+  margin: 24px 0;
+  border: 0;
+  border-top: 1px solid #dadada;
+}
+
 .magazine-sidebar-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* wknd: 18px gap between related items */
 .magazine-sidebar-list li {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 .magazine-sidebar-list li:last-child {
   margin-bottom: 0;
 }
 
-/* wknd: each related item has a 5px grey pipe on its left (not row dividers);
-   the pipe turns black on hover. */
+/* wknd: each related item has a 5px grey pipe on its left (not row dividers)
+   with 8px top/bottom padding; on hover the row fills yellow AND the pipe
+   turns black. */
 .magazine-sidebar-list a {
   display: block;
-  padding-left: 16px;
+  padding: 8px 12px 8px 16px;
   border-left: 5px solid #ebebeb;
   text-decoration: none;
-  transition: border-color 0.15s;
+  transition: background-color 0.15s, border-color 0.15s;
 }
 
 .magazine-sidebar-list a:hover {
+  background-color: var(--accent-color);
   border-left-color: var(--text-color);
 }
 
@@ -81,7 +99,7 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
   color: var(--text-color);
 }
 
-/* title stays dark on hover (only the left pipe changes to black) */
+/* title stays dark on hover (only the row bg + left pipe change) */
 .magazine-sidebar-list a:hover .magazine-sidebar-list-title {
   color: var(--text-color);
 }
