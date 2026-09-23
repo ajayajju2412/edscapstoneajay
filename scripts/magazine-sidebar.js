@@ -2,23 +2,20 @@
  * magazine-sidebar — the right-hand column on wknd magazine-article pages.
  *
  * The source article layout is two columns: the article body on the left and a
- * sidebar on the right holding "SHARE THIS STORY" share icons and an
+ * sidebar on the right holding a "SHARE THIS STORY" Pinterest button and an
  * index-driven list of other magazine articles (title + date). Our import
  * captured only the single article column, so this module rebuilds that layout
  * client-side on magazine-article pages:
  *   1. keeps the hero image + breadcrumb full-width at the top;
  *   2. moves the remaining article content into a left column;
- *   3. appends a right-column sidebar (share links + related-articles list).
+ *   3. appends a right-column sidebar (share button + related-articles list).
  * The related list is index-driven (fetched from /query-index.json) so it stays
  * in sync as articles are added — the same pattern as magazine-cards.
  */
 
-import { SOCIAL_ICON_SVGS } from './social-icons.js';
-
 const INDEX_PATH = '/query-index.json';
 const MAGAZINE_PREFIX = '/us/en/magazine/';
 const SIDEBAR_COUNT = 4;
-const SHARE_NETWORKS = ['facebook', 'twitter', 'pinterest'];
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -63,25 +60,18 @@ function buildShare() {
   heading.textContent = 'SHARE THIS STORY';
   wrap.append(heading);
 
-  const links = document.createElement('div');
-  links.className = 'magazine-sidebar-share-links';
+  // wknd's share section is a single Pinterest "Save" button (a Pinterest
+  // widget embed on the source) — NOT a row of social icons. Render a matching
+  // "Save" pin link that opens Pinterest's create-pin dialog for this page.
   const url = encodeURIComponent(window.location.href);
-  const shareHref = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-    twitter: `https://twitter.com/intent/tweet?url=${url}`,
-    pinterest: `https://www.pinterest.com/pin/create/button/?url=${url}`,
-  };
-  SHARE_NETWORKS.forEach((net) => {
-    const a = document.createElement('a');
-    a.className = `magazine-sidebar-share-link magazine-sidebar-share-${net}`;
-    a.href = shareHref[net] || '#';
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.setAttribute('aria-label', `Share on ${net}`);
-    if (SOCIAL_ICON_SVGS[net]) a.innerHTML = SOCIAL_ICON_SVGS[net];
-    links.append(a);
-  });
-  wrap.append(links);
+  const pin = document.createElement('a');
+  pin.className = 'magazine-sidebar-pin';
+  pin.href = `https://www.pinterest.com/pin/create/button/?url=${url}`;
+  pin.target = '_blank';
+  pin.rel = 'noopener noreferrer';
+  pin.setAttribute('aria-label', 'Save to Pinterest');
+  pin.textContent = 'Save';
+  wrap.append(pin);
   return wrap;
 }
 

@@ -54,29 +54,26 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
   color: var(--text-color);
 }
 
-.magazine-sidebar-share-links {
-  display: flex;
-  gap: 12px;
-}
-
-.magazine-sidebar-share-link {
+/* wknd share section is a single Pinterest "Save" pill button, red like the
+   Pinterest widget — not a row of social icons */
+.magazine-sidebar-pin {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--text-color);
-  color: var(--background-color);
+  padding: 6px 12px 6px 28px;
+  border-radius: 4px;
+  background-color: #e60023; /* Pinterest red */
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-size: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M12 2a10 10 0 0 0-3.65 19.31c-.09-.8-.17-2.04.03-2.92l1.18-5s-.3-.6-.3-1.5c0-1.4.82-2.45 1.83-2.45.86 0 1.28.65 1.28 1.42 0 .87-.55 2.17-.84 3.38-.24 1 .5 1.84 1.5 1.84 1.8 0 3.19-1.9 3.19-4.65 0-2.43-1.75-4.13-4.24-4.13-2.89 0-4.59 2.17-4.59 4.4 0 .87.34 1.81.76 2.32a.3.3 0 0 1 .07.29l-.28 1.15c-.05.19-.15.23-.35.14-1.3-.6-2.11-2.5-2.11-4.02 0-3.28 2.38-6.29 6.87-6.29 3.61 0 6.41 2.57 6.41 6.01 0 3.58-2.26 6.47-5.4 6.47-1.05 0-2.04-.55-2.38-1.2l-.65 2.46c-.23.9-.86 2.04-1.29 2.73A10 10 0 1 0 12 2z'/%3E%3C/svg%3E");
+  color: #fff;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.magazine-sidebar-share-link:hover {
-  background-color: #000;
-}
-
-.magazine-sidebar-share-link svg {
-  width: 18px;
-  height: 18px;
+.magazine-sidebar-pin:hover {
+  background-color: #ad081b;
 }
 
 .magazine-sidebar-sep {
@@ -92,17 +89,19 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
 }
 
 .magazine-sidebar-list li {
-  padding: 16px 0;
   border-bottom: 1px solid #ebebeb;
-}
-
-.magazine-sidebar-list li:first-child {
-  padding-top: 0;
 }
 
 .magazine-sidebar-list a {
   display: block;
+  padding: 16px 12px;
   text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+/* wknd: hovering a related item fills the row with the yellow accent */
+.magazine-sidebar-list a:hover {
+  background-color: var(--accent-color);
 }
 
 .magazine-sidebar-list-title {
@@ -113,9 +112,9 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
   color: var(--text-color);
 }
 
+/* title stays dark on hover (only the row background changes to yellow) */
 .magazine-sidebar-list a:hover .magazine-sidebar-list-title {
   color: var(--text-color);
-  text-decoration: underline;
 }
 
 .magazine-sidebar-list-date {
