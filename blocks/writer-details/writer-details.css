@@ -4,6 +4,16 @@
  * occupations line.
  */
 
+/* wknd's magazine-article page constrains its content to a centered ~1136px
+   column (152px gutters at 1440px), not the sitewide 1680px full width. The
+   article is a single section carrying the magazine-article blocks
+   (breadcrumbs + quote + writer-details + social-links), so scope the column
+   to that section: the hero image, breadcrumb, heading, body copy, byline and
+   share links all align to it instead of bleeding edge-to-edge. */
+main > .section.writer-details-container > div {
+  max-width: 1136px;
+}
+
 .writer-details {
   display: flex;
   align-items: center;
