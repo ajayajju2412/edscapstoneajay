@@ -1,41 +1,55 @@
-.quote blockquote {
-  margin: 0 auto;
-  padding: 0 24px;
-  max-width: 900px;
+/* wknd magazine pull-quote: a light-grey block holding a large serif (Asar)
+   quotation, with an optional small italic definition line ("noun") beneath
+   it. The quotation text carries its own punctuation, so no extra quote marks
+   are injected, and it is normal weight (not bold) — matching the source. */
+.quote {
+  background-color: #ebebeb;
+  margin: 18px 0;
+  padding: 20px 24px; /* compact grey box, like wknd — not a tall full-page block */
 }
 
-@media (width >= 900px) {
-  .quote blockquote {
-    padding: 0 32px;
-  }
+.quote blockquote {
+  margin: 0;
+  padding: 0;
 }
 
 .quote blockquote .quote-quotation {
-  font-size: 120%;
+  font-family: var(--heading-font-family); /* Asar serif */
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.5; /* wknd: 54px on 36px text */
+  color: var(--text-color);
 }
 
-.quote blockquote .quote-quotation > :first-child {
-  text-indent: -0.5ch;
+/* the quotation text is a <p> inside the wrapper; it inherits the sitewide
+   paragraph margin (~28px top / 9px bottom) which adds space at the top, and on
+   magazine-article pages it also inherits the article body's tall 2.5
+   line-height (90px!) — that was ballooning the quote box. Zero the margin and
+   pin the line-height to the quote's 1.5 so the box hugs the text. */
+.quote blockquote .quote-quotation p {
+  margin: 0;
+  line-height: 1.5;
 }
 
-.quote blockquote .quote-quotation p:first-child::before,
-.quote blockquote .quote-quotation p:last-child::after {
-  line-height: 0;
+/* wknd: a short yellow underline separates the quotation from the definition */
+.quote blockquote .quote-quotation::after {
+  content: '';
+  display: block;
+  width: 80px;
+  margin-top: 12px;
+  border-bottom: 2px solid var(--accent-color);
 }
 
-.quote blockquote .quote-quotation p:first-child::before {
-  content: '“';
-}
-
-.quote blockquote .quote-quotation p:last-child::after {
-  content: '”';
+/* the definition line ("noun"), moved into the quote box by
+   scripts/magazine-sidebar.js — small, italic, spaced below the quotation */
+.quote blockquote .quote-definition {
+  margin: 12px 0 0;
+  font-size: var(--body-font-size-s);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text-color);
 }
 
 .quote blockquote .quote-attribution {
   text-align: right;
-}
-
-.quote blockquote .quote-attribution p:first-child::before {
-  content: '—';
-  padding-right: 0.5ch;
 }

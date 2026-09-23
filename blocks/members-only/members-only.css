@@ -1,82 +1,112 @@
 /*
- * members-only — 2-column grid of gated teaser cards (small thumbnail + lock
- * badge, title, tagline, disabled Read More). Approximates wknd's Members Only
- * locked-article treatment.
+ * members-only — wknd "Members Only" gated teasers. A 2-column grid of vertical
+ * cards: a yellow flag-shaped lock badge overlapping the serif title, a grey
+ * uppercase tagline, a grey "Read More" button, and a full-width article image
+ * at the bottom. Matches wknd's cmp-teaser--secure treatment.
  */
 
 .members-only {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px 32px;
+  gap: 48px 28px;
   margin: 24px 0;
 }
 
 .members-only .members-only-card {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  align-items: center;
-  gap: 16px;
-  border: 1px solid #dadada;
-  padding: 16px;
-  background-color: var(--background-color);
+  display: block;
 }
 
+/* wknd "locked" fog: the whole gated card (title, tagline, button, image) is
+   faded to 65% opacity so it reads as un-unlocked content — everything EXCEPT
+   the lock badge, which stays fully opaque to signal the gate. */
+.members-only .members-only-title,
+.members-only .members-only-tagline,
+.members-only .members-only-cta,
 .members-only .members-only-media {
+  opacity: 0.65;
+}
+
+/* title row: the yellow lock badge is absolutely positioned so it overlaps the
+   left edge of the serif title (source covers the title's first letters) */
+.members-only .members-only-titlerow {
   position: relative;
-  width: 120px;
-  height: 90px;
-  overflow: hidden;
+  min-height: 48px;
+  margin-bottom: 8px;
 }
 
-.members-only .members-only-media img {
-  width: 120px;
-  height: 90px;
-  object-fit: cover;
-  filter: grayscale(35%) brightness(0.92); /* subtle "locked" treatment */
-}
-
-/* yellow lock badge overlaid on the thumbnail */
+/* wknd's lock badge: a yellow right-triangle filling the TOP-LEFT corner (a
+   folded-corner ribbon, NOT a bookmark/pennant), drawn with a diagonal
+   gradient — yellow on the lower-left half, transparent on the upper-right —
+   with a black padlock glyph sitting on the yellow area. It overlaps the
+   title's first letters as on the source. */
 .members-only .members-only-lock {
   position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: var(--accent-color);
+  top: -2px;
+  left: 0;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+
+  /* diagonal split: transparent above the anti-diagonal, yellow below it →
+     a right triangle anchored in the top-left corner */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23202020'%3E%3Cpath d='M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z'/%3E%3C/svg%3E"),
+    linear-gradient(to left top, transparent 0, transparent 50%, var(--accent-color) 50%, var(--accent-color) 100%);
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23202020'%3E%3Cpath d='M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z'/%3E%3C/svg%3E");
+  background-position: 8px 8px, 0 0;
+  background-size: 16px, 100% 100%;
 }
 
 .members-only .members-only-title {
-  margin: 0 0 4px;
+  margin: 0;
+  padding-top: 8px; /* vertically center the text against the taller badge */
   font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-l);
+  font-size: var(--heading-font-size-l); /* serif, ~24px */
   font-weight: 400;
   line-height: 1.2;
+  color: var(--text-color);
 }
 
 .members-only .members-only-tagline {
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: #696969;
 }
 
-/* disabled Read More — muted, non-actionable (content is gated) */
+/* wknd "Read More": a grey button box, muted uppercase label. Content is gated
+   behind sign-in, so it's a non-actionable affordance. */
 .members-only .members-only-cta {
   display: inline-block;
+  padding: 8px 16px;
+  background-color: #ebebeb;
+  color: #696969;
   font-size: var(--body-font-size-xs);
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: #9a9a9a;
+  text-decoration: none;
   cursor: not-allowed;
 }
 
+/* full-width article image below the button */
+.members-only .members-only-media {
+  margin-top: 24px;
+  line-height: 0;
+}
+
+.members-only .members-only-media img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
 @media (width >= 900px) {
+  /* wknd: two fixed-width 360px cards, left-aligned (not stretched to fill the
+     row) with a 28px gap between them */
   .members-only {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 360px);
+    justify-content: start;
   }
 }

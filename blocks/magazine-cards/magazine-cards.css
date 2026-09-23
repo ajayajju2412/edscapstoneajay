@@ -1,5 +1,18 @@
 /* magazine-cards — article card rail; shares the adventure-cards look. */
 
+/* wknd's Magazine listing page constrains its content column so text/cards
+   start 152px from each edge and are 1136px wide at 1440px — not the sitewide
+   1680px width. The section wrapper's 32px side padding sits OUTSIDE its
+   max-width (content-box), so a 1136px max-width lands the content at exactly
+   152px from each edge and 1136px wide — matching the source. The page is a
+   single section carrying the magazine blocks (columns-featured +
+   magazine-cards + members-only), so scope the column to that section: every
+   wrapper (h1, featured article, card grid, members-only) aligns uniformly
+   like the source. */
+main > .section.magazine-cards-container > div {
+  max-width: 1136px;
+}
+
 .magazine-cards > ul {
   list-style: none;
   margin: 0;
@@ -43,8 +56,9 @@
   text-decoration: none;
 }
 
+/* wknd: card titles stay dark on hover (no blue --link-color) */
 .magazine-cards .magazine-cards-card-body h3 a:hover {
-  color: var(--link-color);
+  color: var(--text-color);
 }
 
 .magazine-cards .magazine-cards-card-body p {

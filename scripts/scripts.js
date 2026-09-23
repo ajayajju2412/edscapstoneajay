@@ -222,6 +222,15 @@ async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadSections(main);
 
+  // magazine-article pages get a right-hand sidebar (share links + index-driven
+  // related articles) and a two-column layout, matching wknd. No-op elsewhere.
+  try {
+    const { default: decorateMagazineSidebar } = await import('./magazine-sidebar.js');
+    await decorateMagazineSidebar(main);
+  } catch (e) {
+    // sidebar is non-critical; ignore failures
+  }
+
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
