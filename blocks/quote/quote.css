@@ -5,7 +5,7 @@
 .quote {
   background-color: #ebebeb;
   margin: 18px 0;
-  padding: 32px; /* equal spacing on all sides of the grey box, like wknd */
+  padding: 20px 24px; /* compact grey box, like wknd — not a tall full-page block */
 }
 
 .quote blockquote {
