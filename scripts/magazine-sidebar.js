@@ -2,13 +2,12 @@
  * magazine-sidebar — the right-hand column on wknd magazine-article pages.
  *
  * The source article layout is two columns: the article body on the left and a
- * sidebar on the right holding a "SHARE THIS STORY" Pinterest button and an
- * index-driven list of other magazine articles (title + date). Our import
- * captured only the single article column, so this module rebuilds that layout
- * client-side on magazine-article pages:
+ * sidebar on the right holding an index-driven list of other magazine articles
+ * (title + publish date). Our import captured only the single article column,
+ * so this module rebuilds that layout client-side on magazine-article pages:
  *   1. keeps the hero image + breadcrumb full-width at the top;
  *   2. moves the remaining article content into a left column;
- *   3. appends a right-column sidebar (share button + related-articles list).
+ *   3. appends a right-column sidebar (the related-articles list).
  * The related list is index-driven (fetched from /query-index.json) so it stays
  * in sync as articles are added — the same pattern as magazine-cards.
  */
@@ -16,8 +15,30 @@
 const INDEX_PATH = '/query-index.json';
 const MAGAZINE_PREFIX = '/us/en/magazine/';
 const SIDEBAR_COUNT = 4;
-const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/*
+ * Original publish dates from wknd.site, keyed by article slug. The source
+ * shows these fixed publish dates in the sidebar (e.g. "Thursday, 9 Jul 2020")
+ * — NOT the content's last-modified time, which is all our query-index carries.
+ * We render/sort by these authored dates so the sidebar matches the source. Any
+ * article not listed falls back to its index lastModified. `order` gives a
+ * stable newest-first sort (higher = more recent) since several share a date.
+ */
+const PUBLISH_DATES = {
+  'guide-la-skateparks': { text: 'Wednesday, 30 Sep 2020', order: 5 },
+  'ski-touring': { text: 'Wednesday, 30 Sep 2020', order: 4 },
+  'western-australia': { text: 'Thursday, 9 Jul 2020', order: 3 },
+  'san-diego-surf': { text: 'Thursday, 9 Jul 2020', order: 2 },
+  'arctic-surfing': { text: 'Thursday, 9 Jul 2020', order: 1 },
+};
+
+function slugOf(path) {
+  return path.replace(/\.html?$/, '').split('/').filter(Boolean).pop();
+}
+
+function publishDate(path) {
+  return PUBLISH_DATES[slugOf(path)] || null;
+}
 
 function currentPath() {
   // strip a leading /content (local `aem up` preview) and any .html suffix so
@@ -31,15 +52,6 @@ function isMagazineArticle() {
   return path.startsWith(MAGAZINE_PREFIX) && path !== '/us/en/magazine';
 }
 
-/* "Wednesday, 30 Sep 2020" from a unix-seconds (or ms) lastModified value */
-function formatDate(lastModified) {
-  const n = Number(lastModified);
-  if (!n) return '';
-  const d = new Date(n < 1e12 ? n * 1000 : n);
-  if (Number.isNaN(d.getTime())) return '';
-  return `${WEEKDAYS[d.getUTCDay()]}, ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
-}
-
 async function fetchArticles() {
   try {
     const resp = await fetch(INDEX_PATH);
@@ -51,36 +63,17 @@ async function fetchArticles() {
   }
 }
 
-function buildShare() {
-  const wrap = document.createElement('div');
-  wrap.className = 'magazine-sidebar-share';
-
-  const heading = document.createElement('h5');
-  heading.className = 'magazine-sidebar-heading';
-  heading.textContent = 'SHARE THIS STORY';
-  wrap.append(heading);
-
-  // wknd's share section is a single Pinterest "Save" button (a Pinterest
-  // widget embed on the source) — NOT a row of social icons. Render a matching
-  // "Save" pin link that opens Pinterest's create-pin dialog for this page.
-  const url = encodeURIComponent(window.location.href);
-  const pin = document.createElement('a');
-  pin.className = 'magazine-sidebar-pin';
-  pin.href = `https://www.pinterest.com/pin/create/button/?url=${url}`;
-  pin.target = '_blank';
-  pin.rel = 'noopener noreferrer';
-  pin.setAttribute('aria-label', 'Save to Pinterest');
-  pin.textContent = 'Save';
-  wrap.append(pin);
-  return wrap;
-}
-
 function buildRelated(articles) {
   const here = currentPath();
   const items = articles
     .filter((e) => e.path && e.path.startsWith(MAGAZINE_PREFIX)
       && e.path.replace(/\.html?$/, '') !== here)
-    .sort((a, b) => (Number(b.lastModified) || 0) - (Number(a.lastModified) || 0))
+    // newest first by authored publish order, falling back to index lastModified
+    .sort((a, b) => {
+      const oa = publishDate(a.path)?.order ?? (Number(a.lastModified) || 0);
+      const ob = publishDate(b.path)?.order ?? (Number(b.lastModified) || 0);
+      return ob - oa;
+    })
     .slice(0, SIDEBAR_COUNT);
   if (!items.length) return null;
 
@@ -96,11 +89,11 @@ function buildRelated(articles) {
     title.textContent = entry.title || '';
     a.append(title);
 
-    const date = formatDate(entry.lastModified);
+    const date = publishDate(entry.path);
     if (date) {
       const dateEl = document.createElement('span');
       dateEl.className = 'magazine-sidebar-list-date';
-      dateEl.textContent = date;
+      dateEl.textContent = date.text;
       a.append(dateEl);
     }
     li.append(a);
@@ -135,16 +128,11 @@ export default async function decorateMagazineSidebar(main) {
 
   const aside = document.createElement('aside');
   aside.className = 'magazine-article-aside';
-  aside.append(buildShare());
 
   grid.append(mainCol, aside);
   section.append(grid);
 
   // populate the index-driven related list (async; layout already in place)
   const related = buildRelated(await fetchArticles());
-  if (related) {
-    const sep = document.createElement('hr');
-    sep.className = 'magazine-sidebar-sep';
-    aside.append(sep, related);
-  }
+  if (related) aside.append(related);
 }
