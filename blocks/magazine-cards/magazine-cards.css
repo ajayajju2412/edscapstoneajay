@@ -56,8 +56,9 @@ main > .section.magazine-cards-container > div {
   text-decoration: none;
 }
 
+/* wknd: card titles stay dark on hover (no blue --link-color) */
 .magazine-cards .magazine-cards-card-body h3 a:hover {
-  color: var(--link-color);
+  color: var(--text-color);
 }
 
 .magazine-cards .magazine-cards-card-body p {
