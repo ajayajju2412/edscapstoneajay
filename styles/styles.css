@@ -361,12 +361,12 @@ main .section.light-grey {
     grid-template-columns: 2fr 1fr;
     column-gap: 48px;
     align-items: start;
-    max-width: 1680px;
+    max-width: 1136px; /* match wknd's centred content column (152px gutters) */
     margin: 40px auto;
     padding: 0 32px;
   }
 
-  /* left column: page title, intro, accordion */
+  /* left column: page title, intro, accordion — stacked in rows 1 & 2 */
   main .section.faq > .default-content-wrapper,
   main .section.faq > .accordion-wrapper {
     grid-column: 1;
@@ -377,10 +377,20 @@ main .section.light-grey {
     padding: 0;
   }
 
-  /* right column: sidebar, top-aligned, spanning all three left-column rows */
+  main .section.faq > .default-content-wrapper {
+    grid-row: 1;
+  }
+
+  main .section.faq > .accordion-wrapper {
+    grid-row: 2;
+  }
+
+  /* right column: sidebar pinned to the top of column 2, aligned with the page
+     title. Placed on row 1 with align-self:start so it doesn't stretch down. */
   main .section.faq > .faq-sidebar-wrapper {
     grid-column: 2;
-    grid-row: 1 / span 3;
+    grid-row: 1;
+    align-self: start;
     max-width: none;
     padding: 0;
   }
