@@ -179,11 +179,49 @@ function splitHomepageSections(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
+/**
+ * Apply section-metadata to its section, then remove the metadata block.
+ *
+ * The vendored scripts/aem.js in this project does NOT process
+ * `<div class="section-metadata">` (it neither reads the `style` rows to add a
+ * class to the section nor removes the block). Without this, a section whose
+ * metadata sets `style: faq` never gets the `faq` class — so the FAQ page's
+ * two-column layout rule (`main .section.faq`) never applies — and the raw
+ * "style / faq" table renders as a visible (and 404-loading) block. Replicate
+ * the standard EDS behaviour here: read each section-metadata block's `style`
+ * value(s), add them as classes to the parent section, and drop the block.
+ * Runs after decorateSections (so wrappers exist) and before decorateBlocks
+ * (so the block is gone before it would be turned into a real block).
+ */
+function applySectionMetadata(main) {
+  main.querySelectorAll(':scope > .section .section-metadata').forEach((meta) => {
+    const section = meta.closest('.section');
+    [...meta.children].forEach((row) => {
+      const cells = [...row.children];
+      const key = (cells[0]?.textContent || '').trim().toLowerCase();
+      const val = (cells[1]?.textContent || '').trim();
+      if (key === 'style' && val) {
+        val.split(',').forEach((cls) => {
+          const token = cls.trim().replace(/\s+/g, '-').toLowerCase();
+          if (token) section.classList.add(token);
+        });
+      }
+    });
+    // remove the metadata block and its wrapper so it isn't decorated/shown
+    (meta.closest('.section-metadata-wrapper') || meta).remove();
+  });
+
+  // drop any now-empty section wrappers left behind — an empty grid item would
+  // otherwise add a phantom row and break the FAQ two-column alignment.
+  main.querySelectorAll(':scope > .section > div:empty').forEach((w) => w.remove());
+}
+
 export function decorateMain(main) {
   splitHomepageSections(main);
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  applySectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }
