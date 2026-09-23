@@ -17,14 +17,14 @@
   font-family: var(--heading-font-family); /* Asar serif */
   font-size: 36px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text-color);
 }
 
 /* the definition line ("noun"), moved into the quote box by
-   scripts/magazine-sidebar.js — small, italic */
+   scripts/magazine-sidebar.js — small, italic, spaced below the quotation */
 .quote blockquote .quote-definition {
-  margin: 0;
+  margin: 16px 0 0;
   font-size: var(--body-font-size-s);
   font-style: italic;
   font-weight: 400;

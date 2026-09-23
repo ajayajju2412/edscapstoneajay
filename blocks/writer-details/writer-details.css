@@ -93,12 +93,15 @@ main > .section.writer-details-container > .magazine-article-body .magazine-arti
   margin-bottom: 0;
 }
 
-/* wknd: each related item has a 5px grey pipe on its left (not row dividers)
-   with 8px top/bottom padding; on hover the row fills yellow AND the pipe
-   turns black. */
+/* wknd: each related item is a tall (~136px) row with a 5px grey pipe on its
+   left (not row dividers); on hover the row fills yellow AND the pipe turns
+   black. */
 .magazine-sidebar-list a {
-  display: block;
-  padding: 8px 12px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 136px;
+  padding: 0 12px 0 16px;
   border-left: 5px solid #ebebeb;
   text-decoration: none;
   transition: background-color 0.15s, border-color 0.15s;
