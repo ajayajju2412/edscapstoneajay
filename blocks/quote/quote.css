@@ -22,10 +22,13 @@
 }
 
 /* the quotation text is a <p> inside the wrapper; it inherits the sitewide
-   paragraph margin (~28px top / 9px bottom), which adds unwanted space at the
-   top of the grey box. Zero it so the box padding controls the spacing. */
+   paragraph margin (~28px top / 9px bottom) which adds space at the top, and on
+   magazine-article pages it also inherits the article body's tall 2.5
+   line-height (90px!) — that was ballooning the quote box. Zero the margin and
+   pin the line-height to the quote's 1.5 so the box hugs the text. */
 .quote blockquote .quote-quotation p {
   margin: 0;
+  line-height: 1.5;
 }
 
 /* wknd: a short yellow underline separates the quotation from the definition */
