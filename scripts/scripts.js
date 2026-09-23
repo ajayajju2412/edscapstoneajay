@@ -175,11 +175,6 @@ function splitHomepageSections(main) {
 }
 
 /**
- * Decorates the main element.
- * @param {Element} main The main element
- */
-// eslint-disable-next-line import/prefer-default-export
-/**
  * Apply section-metadata to its section, then remove the metadata block.
  *
  * The vendored scripts/aem.js in this project does NOT process
@@ -216,6 +211,11 @@ function applySectionMetadata(main) {
   main.querySelectorAll(':scope > .section > div:empty').forEach((w) => w.remove());
 }
 
+/**
+ * Decorates the main element.
+ * @param {Element} main The main element
+ */
+// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   splitHomepageSections(main);
   decorateIcons(main);
