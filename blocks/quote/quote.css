@@ -1,6 +1,7 @@
 /* wknd magazine pull-quote: a light-grey block holding a large serif (Asar)
-   bold quotation, with an optional small italic definition line ("noun")
-   beneath it. */
+   quotation, with an optional small italic definition line ("noun") beneath
+   it. The quotation text carries its own punctuation, so no extra quote marks
+   are injected, and it is normal weight (not bold) — matching the source. */
 .quote {
   background-color: #ebebeb;
   margin: 18px 0;
@@ -15,43 +16,21 @@
 .quote blockquote .quote-quotation {
   font-family: var(--heading-font-family); /* Asar serif */
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--text-color);
 }
 
 /* the definition line ("noun"), moved into the quote box by
-   scripts/magazine-sidebar.js — small, italic, bold */
+   scripts/magazine-sidebar.js — small, italic */
 .quote blockquote .quote-definition {
   margin: 0;
   font-size: var(--body-font-size-s);
   font-style: italic;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-color);
-}
-
-.quote blockquote .quote-quotation > :first-child {
-  text-indent: -0.5ch;
-}
-
-.quote blockquote .quote-quotation p:first-child::before,
-.quote blockquote .quote-quotation p:last-child::after {
-  line-height: 0;
-}
-
-.quote blockquote .quote-quotation p:first-child::before {
-  content: '“';
-}
-
-.quote blockquote .quote-quotation p:last-child::after {
-  content: '”';
 }
 
 .quote blockquote .quote-attribution {
   text-align: right;
-}
-
-.quote blockquote .quote-attribution p:first-child::before {
-  content: '—';
-  padding-right: 0.5ch;
 }
