@@ -14,6 +14,117 @@ main > .section.writer-details-container > div {
   max-width: 1136px;
 }
 
+/* two-column article layout (built by scripts/magazine-sidebar.js): the hero
+   image + breadcrumb stay full-width above; below, the article body sits in a
+   ~776px left column with a ~291px sidebar on the right, matching wknd. */
+main > .section.writer-details-container > .magazine-article-body {
+  max-width: 1136px;
+  margin-inline: auto;
+  padding: 0 32px;
+}
+
+@media (width >= 900px) {
+  main > .section.writer-details-container > .magazine-article-body {
+    display: grid;
+    grid-template-columns: minmax(0, 776px) 291px;
+    column-gap: 69px;
+    align-items: start;
+  }
+}
+
+/* the left column's own wrappers must not re-apply the section's 152px gutters
+   (they're already inside the padded grid), so let them fill the column */
+main > .section.writer-details-container > .magazine-article-body .magazine-article-main > div {
+  max-width: none;
+  margin-inline: 0;
+  padding: 0;
+}
+
+/* sidebar */
+.magazine-article-aside {
+  font-family: var(--body-font-family);
+}
+
+.magazine-sidebar-heading {
+  margin: 0 0 16px;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.magazine-sidebar-share-links {
+  display: flex;
+  gap: 12px;
+}
+
+.magazine-sidebar-share-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.magazine-sidebar-share-link:hover {
+  background-color: #000;
+}
+
+.magazine-sidebar-share-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.magazine-sidebar-sep {
+  margin: 24px 0;
+  border: 0;
+  border-top: 1px solid #dadada;
+}
+
+.magazine-sidebar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.magazine-sidebar-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.magazine-sidebar-list li:first-child {
+  padding-top: 0;
+}
+
+.magazine-sidebar-list a {
+  display: block;
+  text-decoration: none;
+}
+
+.magazine-sidebar-list-title {
+  display: block;
+  font-family: var(--heading-font-family);
+  font-size: var(--body-font-size-m);
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+.magazine-sidebar-list a:hover .magazine-sidebar-list-title {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+.magazine-sidebar-list-date {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--body-font-size-xs);
+  color: #696969;
+}
+
 .writer-details {
   display: flex;
   align-items: center;
